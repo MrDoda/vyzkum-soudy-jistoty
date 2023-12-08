@@ -1,0 +1,19 @@
+body {
+    font-family: 'Roboto', 'sans-serif';
+}
+
+h1 {
+    font-size:50px !important;
+}
+
+.main {
+    padding: 70px;     /* Custom padding */
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+}
