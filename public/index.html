@@ -4,6 +4,7 @@
   <meta charset='UTF-8'>
   <title>HTMX Example</title>
   <link rel='stylesheet' href='/css/bulma.min.css'>
+  <link rel='stylesheet' type='text/css' href='https://unpkg.com/bulma-prefers-dark' />
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' />
   <script src='/js/htmx.min.js'></script>
   <script src='/js/ws.js'></script>
@@ -21,10 +22,7 @@
   <section class='section' id='dynamicContentArea'>
     <div hx-post='/form/user/userKey' hx-swap='outerHTML' hx-trigger='load'></div>
   </section>
-  <button hx-get="/test" hx-trigger="click">Trigger /test</button>
-  <button hx-get="/test-2" hx-trigger="click">Trigger /test-2</button>
-
-
+  <div id='notifications'></div>
   <section class='section websocket-setup'>
     <main class='col-10'>
       <div hx-ws='connect:/websocket'></div>

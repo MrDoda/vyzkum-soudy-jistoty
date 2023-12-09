@@ -1,17 +1,12 @@
 const React = require('react')
-const { useState } = React
+const UserKeyFormSubmit = require('./UserKeyFormSubmit')
+const UserKeyCheckEmail = require('./UserKeyCheckEmail')
 
-const UserKeyForm = () => {
-  const [userKey, setUserKey] = useState('')
-  const [userKeyConfirm, setUserKeyConfirm] = useState('')
-
-  console.log('yee')
-
-  const isButtonEnabled = userKey === userKeyConfirm && userKey.length > 0
-
+const UserKeyForm = ({ userKey, userKeyConfirm, isChecked, email }) => {
+  const error = userKey && userKeyConfirm && userKey !== userKeyConfirm
   return (
     <form
-      hx-post="/form/user/userKey"
+      hx-post="/form/user/userKeySubmit"
       hx-target="#user_key_form"
       hx-swap="outerHTML"
       className="container box"
@@ -29,36 +24,41 @@ const UserKeyForm = () => {
         <label className="label">Jedinečný Identifikační kód</label>
         <div className="control">
           <input
-            hx-post="/form/user/userKey"
+            hx-post="/form/user/userKeyConfirm"
+            hx-target="#submit"
             name="userKey"
-            className="input"
+            className="input userKey"
             type="text"
-            placeholder="Zadejte jedinečný identifikační kód"
-            value={userKey}
+            defaultValue={userKey}
             onChange={(e) => setUserKey(e.target.value)}
           />
         </div>
       </div>
-
       <div className="field">
         <label className="label">Pro ověření zadejte znovu</label>
         <div className="control">
           <input
-            hx-post="/form/user/userKey"
+            hx-post="/form/user/userKeyConfirm"
+            hx-target="#submit"
             name="userKeyConfirm"
-            className="input"
+            className="input userKey"
             type="text"
-            placeholder="Zadejte znovu pro ověření"
-            value={userKeyConfirm}
+            defaultValue={userKeyConfirm}
             onChange={(e) => setUserKeyConfirm(e.target.value)}
           />
         </div>
       </div>
-      <div className="field">
-        <button className="button is-primary" disabled={!isButtonEnabled}>
-          Vytvořít a Pokračovat
-        </button>
-      </div>
+      <UserKeyCheckEmail
+        {...{
+          isChecked,
+          email,
+        }}
+      />
+
+      <UserKeyFormSubmit
+        isDisabled={error || !userKey || !userKeyConfirm}
+        error={error}
+      />
     </form>
   )
 }

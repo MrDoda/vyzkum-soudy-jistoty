@@ -3,8 +3,8 @@ CREATE DATABASE VyzkumSoudyDB;
 USE VyzkumSoudyDB;
 
 CREATE TABLE User (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    userKey VARCHAR(255)
+    userKey VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255)
 );
 
 CREATE TABLE Admin (
@@ -14,16 +14,16 @@ CREATE TABLE Admin (
 
 CREATE TABLE SoloTest (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    userID INT,
-    FOREIGN KEY (userID) REFERENCES User(ID)
+    userID VARCHAR(255),
+    FOREIGN KEY (userID) REFERENCES User(userKey)
 );
 
 CREATE TABLE DuoTest (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    userID INT,
-    userID2 INT,
-    FOREIGN KEY (userID) REFERENCES User(ID),
-    FOREIGN KEY (userID2) REFERENCES User(ID)
+    userID VARCHAR(255),
+    userID2 VARCHAR(255),
+    FOREIGN KEY (userID) REFERENCES User(userKey),
+    FOREIGN KEY (userID2) REFERENCES User(userKey)
 );
 
 
@@ -61,8 +61,8 @@ CREATE TABLE AnswerDuo (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     questionID INT,
     duoTestId INT,
-    userId INT,
+    userId VARCHAR(255),
     FOREIGN KEY (questionID) REFERENCES Question(ID),
     FOREIGN KEY (duoTestId) REFERENCES DuoTest(ID),
-    FOREIGN KEY (userId) REFERENCES User(ID)
+    FOREIGN KEY (userId) REFERENCES User(userKey)
 );

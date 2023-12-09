@@ -21,3 +21,5 @@ process.on('SIGINT', () => {
     console.log('Closed the database connection.')
   })
 })
+
+module.exports = database

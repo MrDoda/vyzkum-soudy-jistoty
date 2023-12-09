@@ -17,3 +17,7 @@ h1 {
 .flex {
     display: flex;
 }
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
