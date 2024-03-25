@@ -9,6 +9,8 @@ const sessionMiddleWare = () =>
       secure: false,
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
+      sameHost: false,
+      sameSite: 'none',
     },
   })
 
