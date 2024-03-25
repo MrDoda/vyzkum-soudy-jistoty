@@ -24,6 +24,6 @@ app.use('/admin', adminRouter(database))
 app.use('/user', userRouter(database))
 app.use('/test', testRouter(database))
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server is running on port ${process.env.PORT || 3000}`)
+app.listen(8080, () => {
+  console.log(`Server is running on port ${8080}`)
 })
