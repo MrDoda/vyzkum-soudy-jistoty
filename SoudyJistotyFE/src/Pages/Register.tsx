@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useUser } from '../hooks/useUser.ts'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
   const [userKey, setUserKey] = useState('')
@@ -11,6 +12,8 @@ export const Register = () => {
   const [gender, setGender] = useState<string>('1')
 
   const { createUser } = useUser()
+
+  const navigate = useNavigate()
 
   const isDisabled = useMemo(() => {
     if (!userKey) {
@@ -51,6 +54,7 @@ export const Register = () => {
       email,
       gender: gender != '0',
     })
+    navigate('/solo-test')
   }
 
   return (

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-userRouter = (database) =>
+const userRouter = (database) =>
   router
     .post('/create', (req, res) => {
       console.log('/user/create', req.body)
@@ -28,7 +28,8 @@ userRouter = (database) =>
               return res.sendStatus(403)
             }
             req.session.userKey = userKey
-            return res.sendStatus(200)
+            res.status(200)
+            return res.send({ ok: true })
           })
         }
       })
@@ -47,7 +48,8 @@ userRouter = (database) =>
         console.log('Login Successfull', results[0])
 
         req.session.userKey = userKey
-        return res.sendStatus(200)
+        res.status(200)
+        return res.send({ ok: true })
       })
     })
 module.exports = userRouter
