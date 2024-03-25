@@ -1,5 +1,3 @@
-CREATE DATABASE VyzkumSoudyDB;
-
 USE VyzkumSoudyDB;
 
 CREATE TABLE UserGroup (
