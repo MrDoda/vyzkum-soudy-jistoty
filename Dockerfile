@@ -1,5 +1,5 @@
 # Use the official Node.js 18 image as a parent image
-FROM node:18
+FROM node:18-alpine
 
 # Set the working directory in the Docker image
 WORKDIR /usr/src/app
