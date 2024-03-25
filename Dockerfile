@@ -17,7 +17,7 @@ COPY SoudyJistotyBE/. .
 RUN npm run build
 
 # Your application's default port might be 3000. If it's different, change accordingly
-EXPOSE 3000
+EXPOSE 8080
 
 # The command to run your application
 CMD [ "npm", "run", "start:prod" ]
