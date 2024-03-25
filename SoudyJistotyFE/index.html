@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel='stylesheet' href='/css/bulma.min.css'>
+    <link rel='stylesheet' type='text/css' href='https://unpkg.com/bulma-prefers-dark' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' />
+    <script src='https://kit.fontawesome.com/01b6e8d6d9.js' crossorigin='anonymous'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+  <div class='main flex flex-center is-flex-direction-column'>
+    <section class='section'>
+      <h1 class='title'>Výzkum soudů jistoty</h1>
+      <h2 class='subtitle'>
+        Vrátit se na hlavní stránku: <strong><a href="/#/">zde</a></strong> Popřípadě zpět k <a href="/#/solo-test">testu</a>.
+      </h2>
+    </section>
+    <section class='section' id='dynamicContentArea'>
+      <div id="root"></div>
+    </section>
+    <div hx-post='/ws/init' hx-swap='outerHTML' hx-trigger='load'></div>
+  </div>
+  <footer class='footer'>
+    <div class='content has-text-centered'>
+      <p>
+        <strong>Bulma</strong> by <a href='https://jgthms.com'>Jeremy Thomas</a>. The source code is licensed
+        <a href='http://opensource.org/licenses/mit-license.php'>MIT</a>. The website content
+        is licensed <a href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY NC SA 4.0</a>.
+      </p>
+    </div>
+  </footer>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
