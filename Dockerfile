@@ -11,7 +11,7 @@ COPY SoudyJistotyBE/package*.json ./
 RUN npm install
 
 # Copy the rest of your app's source code from your host to the image's filesystem
-COPY SoudyJistotyBE/. .
+COPY SoudyJistotyBE/ ./
 
 # Transpile your ES6+ source code to plain JavaScript
 RUN npm run build
