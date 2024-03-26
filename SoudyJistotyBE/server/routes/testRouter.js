@@ -1,5 +1,5 @@
 const express = require('express')
-const { getUserKey } = require('../utils/getHeaderValues')
+const { getUserKey, getSoloTest } = require('../utils/getHeaderValues')
 const { numberOfQuestionsPerVariant } = require('../config')
 const router = express.Router()
 
@@ -33,11 +33,21 @@ const testRouter = (database) =>
         try {
           user.soloTestQuestions = JSON.parse(user.soloTestQuestions)
           user.soloTestVariantOrder = JSON.parse(user.soloTestVariantOrder)
-          const length = user.soloTestQuestions.length
-          const currentVariant = Math.floor(
-            length / numberOfQuestionsPerVariant
-          )
-          user.current_q_type = user.soloTestVariantOrder[currentVariant]
+
+          if (!user.currentVariant) {
+            user.currentVariant = user.soloTestVariantOrder[0]
+          }
+
+          if (
+            user.soloTestQuestions.length >=
+            numberOfQuestionsPerVariant[user.currentVariant]
+          ) {
+            user.soloTestVariantOrder = user.soloTestVariantOrder.filter(
+              (variant) => variant !== user.currentVariant
+            )
+            user.currentVariant = user.soloTestVariantOrder[0]
+            user.soloTestQuestions = []
+          }
         } catch {
           console.log('Failed to get current question from user IDS')
         }
@@ -47,19 +57,19 @@ const testRouter = (database) =>
             ? `ID NOT IN (${user.soloTestQuestions.join(',')}) AND`
             : ''
         } variant = '${user.soloTestVariant}' AND type = '${
-          user.current_q_type
+          user.currentVariant
         }' ORDER BY RAND() LIMIT 1;`
 
         console.log('questionQuery', questionQuery)
 
         database.query(questionQuery, [], (error, questionResult) => {
-          if (
-            error ||
-            (Array.isArray(questionResult) && questionResult.length < 1)
-          ) {
+          if (error) {
             console.error('No Question?', error, questionResult)
             return res.sendStatus(404)
           }
+          if (questionResult.length < 1) {
+          }
+
           const question = questionResult[0]
 
           user.soloTestQuestions.push(question.ID)
@@ -67,7 +77,11 @@ const testRouter = (database) =>
             user.soloTestQuestions
           )
 
-          const updateQuestions = `UPDATE User SET soloTestQuestions = '${stringifiedSoloTestQuestions}' WHERE userKey = '${userKey}';`
+          const stringifiedSoloTestVariantOrder = JSON.stringify(
+            user.soloTestVariantOrder
+          )
+
+          const updateQuestions = `UPDATE User SET soloTestQuestions = '${stringifiedSoloTestQuestions}', soloTestVariantOrder = '${stringifiedSoloTestVariantOrder}' WHERE userKey = '${userKey}';`
           database.query(updateQuestions, [], (error, userResult) => {
             if (error) {
               console.error('Failed to update user', error, userResult)
@@ -83,15 +97,26 @@ const testRouter = (database) =>
     .post('/setCurrentQuestion', (req, res) => {
       console.log('/test/setCurrentQuestion')
       const userKey = getUserKey(req)
+      const soloTestId = getSoloTest(req)
+      const { question, answerId, answer, trustScale } = req.body
 
-      const currentQuestion = `SELECT * FROM userGroup WHERE active = 1;`
+      if (!question || !answer || !trustScale) {
+        return res.sendStatus(401)
+      }
 
-      database.query(currentQuestion, [], (error, results) => {
+      const wasCorrect = question?.option1 == answerId ? 1 : 0
+      const secondBest = question?.option2 == answerId ? 1 : 0
+
+      const setAnswerQuery = `INSERT INTO AnswerSolo (wasCorrect, secondBest, answer, trustScale, questionId, soloTestId, userId) VALUES (${wasCorrect}, ${secondBest}, '${answer}', ${trustScale}, ${question.ID}, ${soloTestId}, '${userKey}');`
+      console.log('setAnswerQuery', setAnswerQuery)
+
+      database.query(setAnswerQuery, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
-          console.error('Not Allowed start', error, results)
-          return res.sendStatus(404)
+          console.error('Answer not saved', error, results)
+          return res.sendStatus(402)
         }
-        return res.send({ isTestRunning: true })
+        // TBD update how many are correct right now
+        return res.send({ wasCorrect })
       })
     })
     .post('/createSoloTest', (req, res) => {

@@ -11,9 +11,15 @@ export const SoloTest = () => {
   const [isFirstRender, setIsFirstRender] = useState(true)
 
   const onAnswer = (answer: number) => async () => {
+    const selfEv = Math.floor(Math.random() * 100)
+    setSelfEval(selfEv)
+    if (!question) return
+
     const res = await setCurrentAnswer({
-      answer,
-      selfEval,
+      question,
+      answerId: answer,
+      trustScale: selfEv,
+      answer: 'nothing yet',
     })
     console.log('onAnswer res:', res)
   }

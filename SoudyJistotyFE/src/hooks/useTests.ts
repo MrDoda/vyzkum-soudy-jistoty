@@ -1,4 +1,5 @@
 import { request } from '../api/genericPost.ts'
+import { Question } from '../types/types.ts'
 
 export const useTests = () => {
   const isTestRunning = async () => {
@@ -24,10 +25,12 @@ export const useTests = () => {
   }
 
   const setCurrentAnswer = async (answer: {
-    answer: number
-    selfEval: number
+    question: Question
+    answerId: number
+    answer: any
+    trustScale: number
   }) => {
-    const [error, res] = await request('test/setCurrentAnswer', answer)
+    const [error, res] = await request('test/setCurrentQuestion', answer)
     console.log(error, res)
     if (error) {
       console.error('setCurrentAnswer error', error)

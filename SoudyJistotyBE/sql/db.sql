@@ -19,6 +19,7 @@ CREATE TABLE User (
     duoTestQuestions VARCHAR(1000) DEFAULT '[]',
     soloTestVariantOrder VARCHAR(255) DEFAULT '["bool", "alltext", "anatext", "image"]',
     duoTestVariantOrder VARCHAR(255) DEFAULT '["alltext", "bool", "anatext", "image"]',
+    currentVariant VARCHAR(255) NULL,
     botVariant VARCHAR(255) NULL,
     groupId INT NULL,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -81,7 +82,9 @@ CREATE TABLE AnswerSolo (
     trustScale INT,
     questionId INT,
     soloTestId INT,
+    userId VARCHAR(255),
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (questionId) REFERENCES Question(ID),
-    FOREIGN KEY (soloTestId) REFERENCES SoloTest(ID)
+    FOREIGN KEY (soloTestId) REFERENCES SoloTest(ID),
+    FOREIGN KEY (userId) REFERENCES User(userKey)
 );

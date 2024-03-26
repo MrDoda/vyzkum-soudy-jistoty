@@ -18,8 +18,6 @@ const userRouter = (database) =>
         }
         const group = results[0]
 
-        console.log()
-
         if (group?.groupId && userKey && gender !== undefined) {
           const createUserQuery = `INSERT INTO user (userKey, email, gender, groupId) VALUES ("${userKey}","${
             email || ''
