@@ -2,9 +2,7 @@ const customHeaderName = 'x-custom-header'
 export const getIsAdmin = (req) => {
   let possibleHeaders = req.headers[customHeaderName]
   try {
-    console.log('possibleHeaders', possibleHeaders)
     possibleHeaders = JSON.parse(possibleHeaders)
-    console.log('possibleHeaders after JS', possibleHeaders)
   } catch {
     return false
   }

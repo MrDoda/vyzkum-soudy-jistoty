@@ -7,10 +7,11 @@ export const useUser = () => {
     console.log(error, res)
     if (error) {
       console.error('createUser error', error)
-      return
+      return false
     }
     console.log('createUser', res.userKey)
     localStorage.setItem('userKey', res.userKey)
+    return true
   }
 
   const loginUser = async (userKey: string) => {

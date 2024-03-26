@@ -49,12 +49,16 @@ export const Register = () => {
   }, [userKey, userKeyConfirm, email, emailConfirm])
 
   const onCreateClick = async () => {
-    await createUser({
+    setError('')
+    const isUserCreated = await createUser({
       userKey,
       email,
       gender: gender != '0',
     })
-    navigate('/solo-test')
+    if (isUserCreated) {
+      navigate('/wait-start')
+    }
+    setError('Registrace jsou nyní vypnuté.')
   }
 
   return (

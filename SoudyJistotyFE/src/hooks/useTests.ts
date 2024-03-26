@@ -45,6 +45,8 @@ export const useTests = () => {
       return
     }
     console.log('createSoloTest res', res)
+    localStorage.setItem('soloTest', res.soloTest)
+
     return res
   }
 
