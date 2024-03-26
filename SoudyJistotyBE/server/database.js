@@ -1,7 +1,7 @@
 const mysql = require('mysql2')
 
 const database = mysql.createConnection({
-  host: '103.45.247.81',
+  host: 'localhost',
   user: 'myappuser', //root
   password: 'secure_password', //oskar
   database: 'VyzkumSoudyDB',
