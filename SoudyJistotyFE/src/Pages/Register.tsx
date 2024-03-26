@@ -48,8 +48,8 @@ export const Register = () => {
     return disabled
   }, [userKey, userKeyConfirm, email, emailConfirm])
 
-  const onCreateClick = () => {
-    createUser({
+  const onCreateClick = async () => {
+    await createUser({
       userKey,
       email,
       gender: gender != '0',

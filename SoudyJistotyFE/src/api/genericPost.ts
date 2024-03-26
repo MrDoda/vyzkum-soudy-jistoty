@@ -1,5 +1,3 @@
-import { appStore } from '../store/appStore.ts'
-
 export async function request(
   path: string,
   data?: any,
@@ -8,12 +6,18 @@ export async function request(
   const apiUrl = import.meta.env.VITE_API_URL
   const fullUrl = `${apiUrl}/${path}`
 
+  const headersValue = {
+    userKey: localStorage.getItem('userKey'),
+    isAdmin: localStorage.getItem('isAdmin'),
+    soloTest: localStorage.getItem('soloTest'),
+  }
+
   try {
     const fetchData: any = {
       method,
       headers: {
         'Content-Type': 'application/json',
-        'X-Custom-Header': JSON.stringify(appStore.getState().headers),
+        'X-Custom-Header': JSON.stringify(headersValue),
       },
       credentials: 'include',
     }

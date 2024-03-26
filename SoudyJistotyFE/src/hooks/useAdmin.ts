@@ -12,7 +12,8 @@ export const useAdmin = () => {
     }
 
     console.log('admin', response)
-    appStore.setState({ headers: { isAdmin: response.password } })
+
+    localStorage.setItem('isAdmin', response.password)
     return true
   }
 
