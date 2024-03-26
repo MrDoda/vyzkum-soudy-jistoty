@@ -1,5 +1,6 @@
 import { request } from '../api/genericPost.ts'
 import { Question } from '../types/types.ts'
+import { Pages } from '../store/pages.ts'
 
 export const useTests = () => {
   const isTestRunning = async () => {
@@ -13,14 +14,17 @@ export const useTests = () => {
     return res.isTestRunning
   }
 
-  const getCurrentQuestion = async () => {
+  const getCurrentQuestion = async (navigate: (path: string) => void) => {
     const [error, res] = await request('test/getCurrentQuestion')
     console.log(error, res)
     if (error) {
       console.error('getCurrentQuestion error', error)
       return
     }
-    console.log('getCurrentQuestion res', res)
+    if (res.testFinished) {
+      navigate(Pages.WaitStartDuo)
+    }
+
     return res.question
   }
 

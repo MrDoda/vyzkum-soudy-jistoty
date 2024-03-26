@@ -6,4 +6,5 @@ export enum Pages {
   UserCreate = '/create-user',
   UserLogin = '/login',
   WaitStart = '/wait-start',
+  WaitStartDuo = '/wait-start-duo',
 }

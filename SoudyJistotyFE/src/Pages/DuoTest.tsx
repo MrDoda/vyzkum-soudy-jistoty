@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 let isLoading = false
 
-export const SoloTest = () => {
+export const DuoTest = () => {
   const { getCurrentQuestion, setCurrentAnswer, createSoloTest } = useTests()
   const [question, setQuestion] = useState<Question>()
   const [selfEval, setSelfEval] = useState<number>(0)

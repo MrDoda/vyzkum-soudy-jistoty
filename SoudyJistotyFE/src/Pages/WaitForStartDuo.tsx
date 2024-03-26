@@ -2,7 +2,7 @@ import { useTests } from '../hooks/useTests.ts'
 import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
 
-export const WaitForStart = () => {
+export const WaitForStartDuo = () => {
   const { isTestRunning } = useTests()
 
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ export const WaitForStart = () => {
     const isRunning = await isTestRunning()
     if (isRunning) {
       console.log('isRunning')
-      navigate(Pages.SoloTest)
+      navigate(Pages.DuoTest)
     } else {
       console.log('isNotRunning')
     }

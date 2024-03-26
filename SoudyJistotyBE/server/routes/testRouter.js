@@ -72,6 +72,10 @@ const testRouter = (database) =>
 
           const question = questionResult[0]
 
+          if (!question) {
+            return res.send({ testFinished: true })
+          }
+
           user.soloTestQuestions.push(question.ID)
           const stringifiedSoloTestQuestions = JSON.stringify(
             user.soloTestQuestions

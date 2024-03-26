@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useUser } from '../hooks/useUser.ts'
 import { useNavigate } from 'react-router-dom'
+import { Pages } from '../store/pages.ts'
 
 export const Register = () => {
   const [userKey, setUserKey] = useState('')
@@ -56,7 +57,7 @@ export const Register = () => {
       gender: gender != '0',
     })
     if (isUserCreated) {
-      navigate('/wait-start')
+      navigate(Pages.WaitStart)
     }
     setError('Registrace jsou nyní vypnuté.')
   }
