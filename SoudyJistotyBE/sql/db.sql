@@ -36,18 +36,6 @@ CREATE TABLE SoloTest (
     FOREIGN KEY (userId) REFERENCES User(userKey)
 );
 
-DELIMITER //
-
-CREATE TRIGGER before_solo_test_insert
-BEFORE INSERT ON SoloTest
-FOR EACH ROW
-BEGIN
-    SET NEW.variant = IF(MOD(NEW.ID, 2) = 0, 'B', 'A');
-END;
-//
-
-DELIMITER ;
-
 CREATE TABLE DuoTest (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -65,12 +53,12 @@ CREATE TABLE QOption (
 
 CREATE TABLE Question (
     ID INT AUTO_INCREMENT PRIMARY KEY,
+    questionType TEXT NULL,
     description TEXT NULL,
+    firstWord TEXT NULL,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    showCorrectAnswer BOOLEAN,
     type VARCHAR(255), -- bool, alltext, anatext, image, emo,
-    variant VARCHAR(255),
-    orderNumber INT,
+    variant VARCHAR(255), -- 'A', 'B'
     option1 INT, -- correct answer
     option2 INT, -- second best
     option3 INT NULL,
