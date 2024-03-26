@@ -27,9 +27,8 @@ const userRouter = (database) =>
               console.error('User creation Failed', error, results)
               return res.sendStatus(403)
             }
-            req.session.userKey = userKey
-            res.status(200)
-            return res.send({ ok: true })
+            res.status(201)
+            return res.send({ userKey })
           })
         }
       })
@@ -47,9 +46,8 @@ const userRouter = (database) =>
         }
         console.log('Login Successfull', results[0])
 
-        req.session.userKey = userKey
         res.status(200)
-        return res.send({ ok: true })
+        return res.send({ userKey })
       })
     })
 module.exports = userRouter

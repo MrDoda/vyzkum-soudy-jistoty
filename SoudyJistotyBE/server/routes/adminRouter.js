@@ -1,5 +1,6 @@
 const express = require('express')
 const React = require('react')
+const { getIsAdmin } = require('../utils/getHeaderValues')
 
 const router = express.Router()
 
@@ -22,14 +23,13 @@ const adminRouter = (database) =>
         }
 
         const adminUser = results[0]
-        req.session.isAdmin = true
         return res.send(adminUser)
       })
     })
 
     .post('/groups', async (req, res) => {
       console.log('/groups')
-      if (!req.session.isAdmin) {
+      if (!getIsAdmin(req)) {
         return res.sendStatus(403)
       }
 
@@ -42,14 +42,12 @@ const adminRouter = (database) =>
           return res.sendStatus(404)
         }
 
-        const groups = results
-        req.session.isAdmin = true
-        return res.send(groups)
+        return res.send(results)
       })
     })
     .post('/groups/create', async (req, res) => {
       console.log('/groups/create', req.body)
-      if (!req.session.isAdmin) {
+      if (!getIsAdmin(req)) {
         return res.sendStatus(403)
       }
 
@@ -70,7 +68,7 @@ const adminRouter = (database) =>
 
     .post('/groups/update', async (req, res) => {
       console.log('/groups/update', req.body)
-      if (!req.session.isAdmin) {
+      if (!getIsAdmin(req)) {
         return res.sendStatus(403)
       }
 

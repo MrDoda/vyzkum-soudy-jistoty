@@ -12,8 +12,6 @@ const corsOptionsDelegate = (req, callback) => {
   // For example, to allow any origin:
   const allowlist = ['http://localhost:5173', 'http://example.com'] // Example allowlist
 
-  console.log('Visit from:', req.header('Origin'))
-
   if (allowlist.indexOf(req.header('Origin')) !== -1 || !req.header('Origin')) {
     corsOptions = { origin: true, credentials: true } // Reflect the request's origin
   } else {

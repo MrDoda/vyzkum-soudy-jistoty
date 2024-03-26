@@ -1,4 +1,5 @@
 const express = require('express')
+const { getUserKey } = require('../utils/getHeaderValues')
 const router = express.Router()
 
 const testRouter = (database) =>
@@ -18,7 +19,7 @@ const testRouter = (database) =>
     })
     .post('/getCurrentQuestion', (req, res) => {
       console.log('/test/getCurrentQuestion')
-      const userKey = req.session.userKey
+      const userKey = getUserKey(req)
 
       const currentQuestion = `SELECT * FROM userGroup WHERE active = 1;`
 
@@ -32,7 +33,7 @@ const testRouter = (database) =>
     })
     .post('/setCurrentQuestion', (req, res) => {
       console.log('/test/setCurrentQuestion')
-      const userKey = req.session.userKey
+      const userKey = getUserKey(req)
 
       const currentQuestion = `SELECT * FROM userGroup WHERE active = 1;`
 
@@ -46,7 +47,7 @@ const testRouter = (database) =>
     })
     .post('/createSoloTest', (req, res) => {
       console.log('/test/createSoloTest')
-      const userKey = req.session.userKey
+      const userKey = getUserKey(req)
 
       if (!userKey) {
         console.error('No userKey')

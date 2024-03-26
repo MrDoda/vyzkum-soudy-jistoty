@@ -1,4 +1,4 @@
-import { User } from '../store/appStore.ts'
+import { appStore, User } from '../store/appStore.ts'
 import { request } from '../api/genericPost.ts'
 
 export const useUser = () => {
@@ -9,6 +9,8 @@ export const useUser = () => {
       console.error('createUser error', error)
       return
     }
+    console.log('createUser', res.userKey)
+    appStore.setState({ headers: { isAdmin: res.userKey } })
   }
 
   const loginUser = async (userKey: string) => {
@@ -18,6 +20,8 @@ export const useUser = () => {
       console.error('loginUser error', error)
       return
     }
+    console.log('loginUser', res.userKey)
+    appStore.setState({ headers: { isAdmin: res.userKey } })
   }
 
   return {

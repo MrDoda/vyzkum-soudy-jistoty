@@ -1,3 +1,5 @@
+import { appStore } from '../store/appStore.ts'
+
 export async function request(
   path: string,
   data?: any,
@@ -11,6 +13,7 @@ export async function request(
       method,
       headers: {
         'Content-Type': 'application/json',
+        'X-Custom-Header': JSON.stringify(appStore.getState().headers),
       },
       credentials: 'include',
     }
