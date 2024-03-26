@@ -34,9 +34,9 @@ export const SoloTest = () => {
     const fetchData = async () => {
       isLoading = true
       await createSoloTest()
-      const { question, testFinished } = await getCurrentQuestion(navigate)
+      const question = await getCurrentQuestion(navigate)
       setQuestion(question)
-      console.log(question)
+      console.log('QQQ', question)
       console.log('isFirstRender', isFirstRender)
       isLoading = false
       setIsFirstRender(false)

@@ -1,5 +1,7 @@
 export interface Question {
   ID: number
+  questionType: string
+  firstWord: string
   description: string
   createdDate: string
   orderNumber: number
@@ -8,5 +10,5 @@ export interface Question {
   option3: number
   option4: number
   variant: string
-  type: string
+  type: 'bool' | 'alltext' | 'anatext' | 'image'
 }
