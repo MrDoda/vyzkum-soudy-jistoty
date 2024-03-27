@@ -1,14 +1,19 @@
-# This example is for illustrative purposes. openpyxl's actual image extraction capabilities may be limited.
-from openpyxl import load_workbook
-from openpyxl.drawing.image import Image
+#Importing the modules
+import openpyxl
+from openpyxl_image_loader import SheetImageLoader
 
-wb = load_workbook(filename='pictures.xlsx')
-sheet = wb.active
+#loading the Excel File and the sheet
+pxl_doc = openpyxl.load_workbook('pictures.xlsx')
+sheet = pxl_doc['Sheet1']
 
-# Assuming images are in a specific column, e.g., 'A'
-for row in sheet['A']:
-    for cell in row:
-        if isinstance(cell.value, Image):
-            image = cell.value
-            with open(f'image_{cell.coordinate}.jpeg', 'wb') as img_file:
-                img_file.write(image._data())  # This is a hypothetical method; actual method to access image data may differ.
+#calling the image_loader
+image_loader = SheetImageLoader(sheet)
+
+#get the image (put the cell you need instead of 'A1')
+image = image_loader.get('B2')
+
+#showing the image
+image.show()
+
+#saving the image
+image.save('my_path/image_name.jpg')
