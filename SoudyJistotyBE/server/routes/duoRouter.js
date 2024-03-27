@@ -3,21 +3,8 @@ const { getUserKey, getSoloTest } = require('../utils/getHeaderValues')
 const { numberOfQuestionsPerVariant } = require('../config')
 const router = express.Router()
 
-const testRouter = (database) =>
+const duoRouter = (database) =>
   router
-    .post('/isRunning', (req, res) => {
-      console.log('/test/isRunning')
-
-      const isTestRunning = 'SELECT * FROM userGroup WHERE active = 1;'
-
-      database.query(isTestRunning, [], (error, results) => {
-        if (error || (Array.isArray(results) && results.length < 1)) {
-          console.error('Not Allowed start', error, results)
-          return res.sendStatus(404)
-        }
-        return res.send({ isTestRunning: true })
-      })
-    })
     .post('/getCurrentQuestion', (req, res) => {
       console.log('/test/getCurrentQuestion')
       const userKey = getUserKey(req)
@@ -52,37 +39,15 @@ const testRouter = (database) =>
           console.log('Failed to get current question from user IDS')
         }
 
-        const questionQuery = `
-                              SELECT 
-                                  Q.*,
-                                  O1.content AS option1Content,
-                                  O2.content AS option2Content,
-                                  O3.content AS option3Content,
-                                  O4.content AS option4Content
-                              FROM 
-                                  Question Q
-                              LEFT JOIN 
-                                  QOption O1 ON Q.option1 = O1.ID
-                              LEFT JOIN 
-                                  QOption O2 ON Q.option2 = O2.ID
-                              LEFT JOIN 
-                                  QOption O3 ON Q.option3 = O3.ID
-                              LEFT JOIN 
-                                  QOption O4 ON Q.option4 = O4.ID
-                              WHERE 
-                                  ${
-                                    user.soloTestQuestions.length > 0
-                                      ? `Q.ID NOT IN (${user.soloTestQuestions.join(
-                                          ','
-                                        )}) AND`
-                                      : ''
-                                  } 
-                                  Q.variant = '${user.soloTestVariant}' AND 
-                                  Q.type = '${user.currentVariant}' 
-                              ORDER BY 
-                                  RAND() 
-                              LIMIT 1;
-                              `
+        const questionQuery = `SELECT * FROM Question WHERE ${
+          user.soloTestQuestions.length > 0
+            ? `ID NOT IN (${user.soloTestQuestions.join(',')}) AND`
+            : ''
+        } variant = '${user.soloTestVariant}' AND type = '${
+          user.currentVariant
+        }' ORDER BY RAND() LIMIT 1;`
+
+        console.log('questionQuery', questionQuery)
 
         database.query(questionQuery, [], (error, questionResult) => {
           if (error) {
@@ -182,4 +147,4 @@ const testRouter = (database) =>
       })
     })
 
-module.exports = testRouter
+module.exports = duoRouter

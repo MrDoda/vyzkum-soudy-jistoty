@@ -1,7 +1,7 @@
 const numberOfQuestionsPerVariant = {
-  alltext: 1,
-  bool: 1,
-  anatext: 1,
+  alltext: 4,
+  bool: 2,
+  anatext: 4,
   image: 1,
 }
 

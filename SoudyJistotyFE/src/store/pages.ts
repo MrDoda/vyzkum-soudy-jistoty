@@ -7,4 +7,5 @@ export enum Pages {
   UserLogin = '/login',
   WaitStart = '/wait-start',
   WaitStartDuo = '/wait-start-duo',
+  FinishedTest = '/finished-all-tests',
 }

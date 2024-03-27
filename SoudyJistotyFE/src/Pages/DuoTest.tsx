@@ -2,11 +2,12 @@ import { useTests } from '../hooks/useTests.ts'
 import { useEffect, useState } from 'react'
 import { Question } from '../types/types.ts'
 import { useNavigate } from 'react-router-dom'
+import { useDuoTests } from '../hooks/useDuoTests.ts'
 
 let isLoading = false
 
 export const DuoTest = () => {
-  const { getCurrentQuestion, setCurrentAnswer, createSoloTest } = useTests()
+  const { getCurrentQuestion, createDuoTest } = useDuoTests()
   const [question, setQuestion] = useState<Question>()
   const [selfEval, setSelfEval] = useState<number>(0)
   const [isFirstRender, setIsFirstRender] = useState(true)
@@ -17,14 +18,6 @@ export const DuoTest = () => {
     const selfEv = Math.floor(Math.random() * 100)
     setSelfEval(selfEv)
     if (!question) return
-
-    const res = await setCurrentAnswer({
-      question,
-      answerId: answer,
-      trustScale: selfEv,
-      answer: 'nothing yet',
-    })
-    console.log('onAnswer res:', res)
   }
 
   useEffect(() => {
@@ -33,8 +26,8 @@ export const DuoTest = () => {
     }
     const fetchData = async () => {
       isLoading = true
-      await createSoloTest()
-      const { question, testFinished } = await getCurrentQuestion(navigate)
+      await createDuoTest()
+      const question = await getCurrentQuestion(navigate)
       setQuestion(question)
       console.log(question)
       console.log('isFirstRender', isFirstRender)
