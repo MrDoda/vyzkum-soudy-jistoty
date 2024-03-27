@@ -25,7 +25,7 @@ export const useTests = () => {
       navigate(Pages.WaitStartDuo)
     }
 
-    return res.question
+    return res
   }
 
   const setCurrentAnswer = async (answer: {

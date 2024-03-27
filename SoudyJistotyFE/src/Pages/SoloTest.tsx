@@ -2,29 +2,40 @@ import { useTests } from '../hooks/useTests.ts'
 import { useEffect, useState } from 'react'
 import { Question } from '../types/types.ts'
 import { useNavigate } from 'react-router-dom'
+import BoolQuestion from '../components/BoolQuestion.tsx'
+import SelfEvalSlider from '../components/SelfEvalSlider';
 
 let isLoading = false
+
+
+//const questionComponents = {
+//  bool: BoolQuestion,
+//};
 
 export const SoloTest = () => {
   const { getCurrentQuestion, setCurrentAnswer, createSoloTest } = useTests()
   const [question, setQuestion] = useState<Question>()
-  const [selfEval, setSelfEval] = useState<number>(0)
+  const [selfEval, setSelfEval] = useState<number>(50)
   const [isFirstRender, setIsFirstRender] = useState(true)
+  const [selectedAnswer, setSelectedAnswer] = useState(0);
+  const [showSlider, setShowSlider] = useState<boolean>(false);
 
+  // const QuestionComponent = question ? questionComponents[question.type] : null;
   const navigate = useNavigate()
 
-  const onAnswer = (answer: number) => async () => {
-    const selfEv = Math.floor(Math.random() * 100)
-    setSelfEval(selfEv)
+  const onAnswer  = async () => {
+    console.log('onAnswer res:')
     if (!question) return
 
     const res = await setCurrentAnswer({
       question,
-      answerId: answer,
-      trustScale: selfEv,
+      answerId: selectedAnswer,
+      trustScale: selfEval,
       answer: 'nothing yet',
     })
     console.log('onAnswer res:', res)
+    setShowSlider(false)
+    setIsFirstRender(true)
   }
 
   useEffect(() => {
@@ -46,22 +57,25 @@ export const SoloTest = () => {
 
   if (!question) return <div>Loading...</div>
 
-  return (
-    <div>
-      {JSON.stringify(question)}
+  console.log('LOG', selectedAnswer, isFirstRender)
 
-      <button
-        className="button is-primary"
-        onClick={onAnswer(question?.option1)}
-      >
-        Odpovědět
-      </button>
-      <button
-        className="button is-primary"
-        onClick={onAnswer(question?.option2)}
-      >
-        Odpovědět Špatně
-      </button>
+
+  return (
+    <div className="container has-text-centered" style={{ marginTop: '20px' }}>
+      {!showSlider ? (
+        <>
+          <BoolQuestion question={question} onAnswerChange={setSelectedAnswer} />
+          <button
+            className="button is-primary mt-3"
+            disabled={selectedAnswer === 0}
+            onClick={() => setShowSlider(true)}
+          >
+            Pokračovat
+          </button>
+        </>
+      ) : (
+        <SelfEvalSlider selfEval={selfEval} onSelfEvalChange={setSelfEval} onAnswer={onAnswer}/>
+      )}
     </div>
-  )
+  );
 }
