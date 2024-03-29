@@ -4,13 +4,17 @@ import { Question } from '../types/types.ts'
 import { useNavigate } from 'react-router-dom'
 import BoolQuestion from '../components/BoolQuestion.tsx'
 import SelfEvalSlider from '../components/SelfEvalSlider';
+import AnalogiesQuestion from '../components/AnalogiesQuestion.tsx'
 
 let isLoading = false
 
 
-//const questionComponents = {
-//  bool: BoolQuestion,
-//};
+const questionComponents = {
+  bool: BoolQuestion,
+  anatext: AnalogiesQuestion,
+  alltext: AnalogiesQuestion,
+  image: AnalogiesQuestion,
+};
 
 export const SoloTest = () => {
   const { getCurrentQuestion, setCurrentAnswer, createSoloTest } = useTests()
@@ -20,10 +24,9 @@ export const SoloTest = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(0);
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
-  // const QuestionComponent = question ? questionComponents[question.type] : null;
   const navigate = useNavigate()
 
-  const onAnswer  = async () => {
+  const onAnswer = async () => {
     console.log('onAnswer res:')
     if (!question) return
 
@@ -34,6 +37,7 @@ export const SoloTest = () => {
       answer: 'nothing yet',
     })
     console.log('onAnswer res:', res)
+    setSelectedAnswer(0)
     setShowSlider(false)
     setIsFirstRender(true)
   }
@@ -56,15 +60,16 @@ export const SoloTest = () => {
   }, [isFirstRender])
 
   if (!question) return <div>Loading...</div>
+  const QuestionComponent = questionComponents[question.type];
 
-  console.log('LOG', selectedAnswer, isFirstRender)
+  console.log('LOG', selectedAnswer, isFirstRender, question)
 
 
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
       {!showSlider ? (
         <>
-          <BoolQuestion question={question} onAnswerChange={setSelectedAnswer} />
+          <QuestionComponent question={question} onAnswerChange={setSelectedAnswer} />
           <button
             className="button is-primary mt-3"
             disabled={selectedAnswer === 0}
@@ -74,7 +79,7 @@ export const SoloTest = () => {
           </button>
         </>
       ) : (
-        <SelfEvalSlider selfEval={selfEval} onSelfEvalChange={setSelfEval} onAnswer={onAnswer}/>
+        <SelfEvalSlider selfEval={selfEval} onSelfEvalChange={setSelfEval} onAnswer={onAnswer} />
       )}
     </div>
   );
