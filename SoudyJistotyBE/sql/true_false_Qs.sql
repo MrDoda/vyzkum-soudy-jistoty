@@ -2,83 +2,83 @@ USE VyzkumSoudyDB;
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Ekonomie', 'Inflace znamená pokles cenové hladiny v ekonomice', 1, 2, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Ekonomie', 'Inflace znamená pokles cenové hladiny v ekonomice', 1, 2, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Historie', 'Berlínská zeď byla stržena v roce 1989', 3, 4, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Historie', 'Berlínská zeď byla stržena v roce 1989', 3, 4, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Psychologie', 'Maslowova hierarchie potřeb začíná na nejnižší úrovni fyziologickými potřebami.', 5, 6, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Psychologie', 'Maslowova hierarchie potřeb začíná na nejnižší úrovni fyziologickými potřebami.', 5, 6, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Sociologie', 'Max Weber definoval stát jako entitu, která má monopol na legitimní použití fyzické síly', 7, 8, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Sociologie', 'Max Weber definoval stát jako entitu, která má monopol na legitimní použití fyzické síly', 7, 8, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Literatura', '"Válka a mír" byl napsán Levem Tolstojem', 9, 10, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Literatura', '"Válka a mír" byl napsán Levem Tolstojem', 9, 10, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Filozofie', 'Descartes je známý svým výrokem "Myslím, tedy jsem".', 11, 12, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Filozofie', 'Descartes je známý svým výrokem "Myslím, tedy jsem".', 11, 12, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Geografie', 'Mount Everest je nejvyšší horou světa', 13, 14, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Geografie', 'Mount Everest je nejvyšší horou světa', 13, 14, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Astronomie', 'Slunce je největší hvězdou v naší galaxii', 15, 16, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Astronomie', 'Slunce je největší hvězdou v naší galaxii', 15, 16, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Politologie', 'Většinový volební systém zaručuje rovnou reprezentaci všech politických stran', 17, 18, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Politologie', 'Většinový volební systém zaručuje rovnou reprezentaci všech politických stran', 17, 18, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Právo', 'Common law je právní systém založený na precedentech', 19, 20, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Právo', 'Common law je právní systém založený na precedentech', 19, 20, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Ekologie', 'Ozone Layer se nachází v troposféře', 21, 22, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Ekologie', 'Ozone Layer se nachází v troposféře', 21, 22, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Fyzika', 'Entropie v izolovaném systému se může snížit', 23, 24, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Fyzika', 'Entropie v izolovaném systému se může snížit', 23, 24, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Chemie', 'Vodík má atomové číslo 1', 25, 26, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Chemie', 'Vodík má atomové číslo 1', 25, 26, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Biologie', 'Krevní skupiny byly objeveny Karlem Landsteinerem', 27, 28, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Biologie', 'Krevní skupiny byly objeveny Karlem Landsteinerem', 27, 28, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Informatika', 'TCP/IP je protokol používaný pro přenos dat v internetu', 29, 30, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Informatika', 'TCP/IP je protokol používaný pro přenos dat v internetu', 29, 30, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Matematika', 'Nula je považována za kladné číslo', 31, 32, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Matematika', 'Nula je považována za kladné číslo', 31, 32, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Fyzika', 'Zákon zachování energie platí v uzavřených systémech', 33, 34, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Fyzika', 'Zákon zachování energie platí v uzavřených systémech', 33, 34, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Chemie', 'Všechny plyny mají stejnou hustotu za standardních podmínek', 35, 36, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Chemie', 'Všechny plyny mají stejnou hustotu za standardních podmínek', 35, 36, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Biologie', 'Mitóza je proces, při kterém dochází k vzniku pohlavních buněk', 37, 38, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Biologie', 'Mitóza je proces, při kterém dochází k vzniku pohlavních buněk', 37, 38, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('FALSE');
 INSERT INTO QOption (content) VALUES ('TRUE');
-INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Informatika', 'Linux je příkladem operačního systému založeného na Windows', 39, 40, 'bool', 'A');
+INSERT INTO Question (questionType, description, option1, option2, type, variant) VALUES ('Informatika', 'Linux je příkladem operačního systému založeného na Windows', 39, 40, 'bool', 'B');
 
 INSERT INTO QOption (content) VALUES ('TRUE');
 INSERT INTO QOption (content) VALUES ('FALSE');

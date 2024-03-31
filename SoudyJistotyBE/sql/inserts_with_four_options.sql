@@ -4,121 +4,121 @@ INSERT INTO QOption (content) VALUES ('6');
 INSERT INTO QOption (content) VALUES ('9');
 INSERT INTO QOption (content) VALUES ('3');
 INSERT INTO QOption (content) VALUES ('12');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Matematika', 'Co je derivace funkce f(x) = x^2 v bodě x = 3?', 81, 82, 83, 84, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Matematika', 'Co je derivace funkce f(x) = x^2 v bodě x = 3?', 81, 82, 83, 84, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Ohmův zákon');
 INSERT INTO QOption (content) VALUES ('Newtonův zákon');
 INSERT INTO QOption (content) VALUES ('Jouleův zákon');
 INSERT INTO QOption (content) VALUES ('Faradayův zákon');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Fyzika', 'Jaký je název fyzikálního zákona, který popisuje vztah mezi elektrickým proudem, napětím a odporem?', 85, 86, 87, 88, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Fyzika', 'Jaký je název fyzikálního zákona, který popisuje vztah mezi elektrickým proudem, napětím a odporem?', 85, 86, 87, 88, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Kyslík');
 INSERT INTO QOption (content) VALUES ('Zlato');
 INSERT INTO QOption (content) VALUES ('Ozon');
 INSERT INTO QOption (content) VALUES ('Osmium');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Chemie', 'Který prvek má chemickou značku O?', 89, 90, 91, 92, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Chemie', 'Který prvek má chemickou značku O?', 89, 90, 91, 92, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Játra');
 INSERT INTO QOption (content) VALUES ('Ledviny');
 INSERT INTO QOption (content) VALUES ('Srdce');
 INSERT INTO QOption (content) VALUES ('Slinivka');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Biologie', 'Jaký orgán je primárně zodpovědný za detoxikaci krve?', 93, 94, 95, 96, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Biologie', 'Jaký orgán je primárně zodpovědný za detoxikaci krve?', 93, 94, 95, 96, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Python');
 INSERT INTO QOption (content) VALUES ('C');
 INSERT INTO QOption (content) VALUES ('HTML');
 INSERT INTO QOption (content) VALUES ('Assembly');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Informatika', 'Který z následujících jazyků je objektově orientovaný?', 97, 98, 99, 100, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Informatika', 'Který z následujících jazyků je objektově orientovaný?', 97, 98, 99, 100, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Zvýšení cen zboží a služeb');
 INSERT INTO QOption (content) VALUES ('Pokles hodnoty peněz');
 INSERT INTO QOption (content) VALUES ('Pokles nezaměstnanosti');
 INSERT INTO QOption (content) VALUES ('Zvýšení hodnoty akcií');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Ekonomie', 'Co je definice inflace?', 101, 102, 103, 104, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Ekonomie', 'Co je definice inflace?', 101, 102, 103, 104, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Deklarace nezávislosti');
 INSERT INTO QOption (content) VALUES ('Magna Charta');
 INSERT INTO QOption (content) VALUES ('Versailleská smlouva');
 INSERT INTO QOption (content) VALUES ('Nürnberské zákony');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Historie', 'Který historický dokument byl podepsán v roce 1215?', 105, 106, 107, 108, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Historie', 'Který historický dokument byl podepsán v roce 1215?', 105, 106, 107, 108, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Sigmund Freud');
 INSERT INTO QOption (content) VALUES ('Carl jung');
 INSERT INTO QOption (content) VALUES ('Ivan Pavlov');
 INSERT INTO QOption (content) VALUES ('Jean Piaget');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Psychologie', 'Kdo je považován za zakladatele psychoanalýzy?', 109, 110, 111, 112, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Psychologie', 'Kdo je považován za zakladatele psychoanalýzy?', 109, 110, 111, 112, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Mezilidské vztahy a interakce');
 INSERT INTO QOption (content) VALUES ('Globální sociální procesy');
 INSERT INTO QOption (content) VALUES ('Strukturu společnosti');
 INSERT INTO QOption (content) VALUES ('Historický vývoj společenských institucí');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Sociologie', 'Co zkoumá mikrosociologie?', 113, 114, 115, 116, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Sociologie', 'Co zkoumá mikrosociologie?', 113, 114, 115, 116, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('George Orwell');
 INSERT INTO QOption (content) VALUES ('Aldous Huxley');
 INSERT INTO QOption (content) VALUES ('J.R.R. Tolkien');
 INSERT INTO QOption (content) VALUES ('Ernest Hemingway');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Literatura', 'Kdo napsal "1984"?', 117, 118, 119, 120, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Literatura', 'Kdo napsal "1984"?', 117, 118, 119, 120, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Immanuel Kant');
 INSERT INTO QOption (content) VALUES ('Friedrich Nietzsche');
 INSERT INTO QOption (content) VALUES ('Søren Kierkegaard');
 INSERT INTO QOption (content) VALUES ('David Hume');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Filozofie', 'Kdo je autorem "Kritiky čistého rozumu"?', 121, 122, 123, 124, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Filozofie', 'Kdo je autorem "Kritiky čistého rozumu"?', 121, 122, 123, 124, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Rusko');
 INSERT INTO QOption (content) VALUES ('Čína');
 INSERT INTO QOption (content) VALUES ('Kanada');
 INSERT INTO QOption (content) VALUES ('Spojené státy americké');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Geografie', 'Který stát má největší rozlohu na světě?', 125, 126, 127, 128, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Geografie', 'Který stát má největší rozlohu na světě?', 125, 126, 127, 128, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Merkur');
 INSERT INTO QOption (content) VALUES ('Mars');
 INSERT INTO QOption (content) VALUES ('Venuše');
 INSERT INTO QOption (content) VALUES ('Země');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Astronomie', 'Která planeta je nejblíže Slunci?', 129, 130, 131, 132, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Astronomie', 'Která planeta je nejblíže Slunci?', 129, 130, 131, 132, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Vláda mnoha');
 INSERT INTO QOption (content) VALUES ('Vláda několika');
 INSERT INTO QOption (content) VALUES ('Vláda jednoho');
 INSERT INTO QOption (content) VALUES ('Vláda nikoho');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Politologie', 'Co je demokracie?', 133, 134, 135, 136, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Politologie', 'Co je demokracie?', 133, 134, 135, 136, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Právo na osobní svobodu');
 INSERT INTO QOption (content) VALUES ('Právo na svobodu slova');
 INSERT INTO QOption (content) VALUES ('Právo na právního zástupce');
 INSERT INTO QOption (content) VALUES ('Právo na spravedlivý proces');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Právo', 'Co je habeas corpus?', 137, 138, 139, 140, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Právo', 'Co je habeas corpus?', 137, 138, 139, 140, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Emise skleníkových plynů');
 INSERT INTO QOption (content) VALUES ('Znečištění vod');
 INSERT INTO QOption (content) VALUES ('Přirozené klimatické změny');
 INSERT INTO QOption (content) VALUES ('Nadměrné využívání fosilních paliv');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Ekologie', 'Co je hlavní příčinou globálního oteplování?', 141, 142, 143, 144, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Ekologie', 'Co je hlavní příčinou globálního oteplování?', 141, 142, 143, 144, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Studium chování malých částic');
 INSERT INTO QOption (content) VALUES ('Studium pohybu planet');
 INSERT INTO QOption (content) VALUES ('Studium pohybu velkých objektů');
 INSERT INTO QOption (content) VALUES ('Studium gravitačních sil');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Fyzika', 'Co je kvantová mechanika?', 145, 146, 147, 148, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Fyzika', 'Co je kvantová mechanika?', 145, 146, 147, 148, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Seznam všech známých prvků');
 INSERT INTO QOption (content) VALUES ('Seznam chemických reakcí');
 INSERT INTO QOption (content) VALUES ('Seznam všech organických sloučenin');
 INSERT INTO QOption (content) VALUES ('Seznam všech anorganických sloučenin');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Chemie', 'Co je periodická tabulka?', 149, 150, 151, 152, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Chemie', 'Co je periodická tabulka?', 149, 150, 151, 152, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Transkripce');
 INSERT INTO QOption (content) VALUES ('Replikace DNA');
 INSERT INTO QOption (content) VALUES ('Translace');
 INSERT INTO QOption (content) VALUES ('Mitóza');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Biologie', 'Který z následujících procesů je zodpovědný za přenos genetické informace z DNA do mRNA?', 153, 154, 155, 156, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Biologie', 'Který z následujících procesů je zodpovědný za přenos genetické informace z DNA do mRNA?', 153, 154, 155, 156, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Software, který řídí hardware počítače');
 INSERT INTO QOption (content) VALUES ('Sada nástrojů pro vývoj softwaru');
 INSERT INTO QOption (content) VALUES ('Program pro zpracování textu');
 INSERT INTO QOption (content) VALUES ('Databázový systém');
-INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Informatika', 'Co je operační systém?', 157, 158, 159, 160, 'alltext', 'A');
+INSERT INTO Question (questionType, description, option1, option2, option3, option4, type, variant) VALUES ('Informatika', 'Co je operační systém?', 157, 158, 159, 160, 'alltext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Pokles cenové hladiny v ekonomice');
 INSERT INTO QOption (content) VALUES ('Zvýšení hodnoty peněz');

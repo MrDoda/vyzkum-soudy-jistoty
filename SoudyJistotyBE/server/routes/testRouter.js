@@ -133,7 +133,7 @@ const testRouter = (database) =>
       const wasCorrect = question?.option1 == answerId ? 1 : 0
       const secondBest = question?.option2 == answerId ? 1 : 0
 
-      const setAnswerQuery = `INSERT INTO AnswerSolo (wasCorrect, secondBest, answer, trustScale, questionId, soloTestId, userId) VALUES (${wasCorrect}, ${secondBest}, '${answer}', ${trustScale}, ${question.ID}, ${soloTestId}, '${userKey}');`
+      const setAnswerQuery = `INSERT INTO AnswerSolo (wasCorrect, secondBest, answer, answerId, trustScale, questionId, soloTestId, userId) VALUES (${wasCorrect}, ${secondBest}, '${answer}', '${answerId}', ${trustScale}, ${question.ID}, ${soloTestId}, '${userKey}');`
       console.log('setAnswerQuery', setAnswerQuery)
 
       database.query(setAnswerQuery, [], (error, results) => {

@@ -2,61 +2,61 @@ INSERT INTO QOption (content) VALUES ('Zlepšení');
 INSERT INTO QOption (content) VALUES ('Medaile');
 INSERT INTO QOption (content) VALUES ('Závod');
 INSERT INTO QOption (content) VALUES ('Únava');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Příčina a následek', 'Studium - Vzdělání', 'Trénink', 241, 242, 243, 244, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Příčina a následek', 'Studium - Vzdělání', 'Trénink', 241, 242, 243, 244, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Míchání');
 INSERT INTO QOption (content) VALUES ('Vaření');
 INSERT INTO QOption (content) VALUES ('Krájení');
 INSERT INTO QOption (content) VALUES ('Pečení');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Nástroj a jeho funkce', 'Štětec - Malování', 'Lžíce', 245, 246, 247, 248, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Nástroj a jeho funkce', 'Štětec - Malování', 'Lžíce', 245, 246, 247, 248, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Okno');
 INSERT INTO QOption (content) VALUES ('Branka');
 INSERT INTO QOption (content) VALUES ('Zahrada');
 INSERT INTO QOption (content) VALUES ('Nábytek');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Vztah celek a jeho část', 'Auto - Motor', 'Dům', 249, 250, 251, 252, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Vztah celek a jeho část', 'Auto - Motor', 'Dům', 249, 250, 251, 252, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Hluk');
 INSERT INTO QOption (content) VALUES ('Hudba');
 INSERT INTO QOption (content) VALUES ('Píseň');
 INSERT INTO QOption (content) VALUES ('Melodie');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Protikladnost', 'Světlo - Tma', 'Ticho', 253, 254, 255, 256, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Protikladnost', 'Světlo - Tma', 'Ticho', 253, 254, 255, 256, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Moudrý');
 INSERT INTO QOption (content) VALUES ('Veselý');
 INSERT INTO QOption (content) VALUES ('Smutný');
 INSERT INTO QOption (content) VALUES ('Zvědavý');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Souznačnost', 'Rychlý - Spěšný', 'Inteligentní', 257, 258, 259, 260, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Souznačnost', 'Rychlý - Spěšný', 'Inteligentní', 257, 258, 259, 260, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Květina');
 INSERT INTO QOption (content) VALUES ('Strom');
 INSERT INTO QOption (content) VALUES ('Zahrada');
 INSERT INTO QOption (content) VALUES ('List');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Nadřazenost a podřazenost', 'Pták - Živočich', 'Růže', 261, 262, 263, 264, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Nadřazenost a podřazenost', 'Pták - Živočich', 'Růže', 261, 262, 263, 264, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Léto');
 INSERT INTO QOption (content) VALUES ('Zima');
 INSERT INTO QOption (content) VALUES ('Listopad');
 INSERT INTO QOption (content) VALUES ('Duben');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Souřadnost', 'Pondělí - Úterý', 'Jaro', 265, 266, 267, 268, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Souřadnost', 'Pondělí - Úterý', 'Jaro', 265, 266, 267, 268, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Dům');
 INSERT INTO QOption (content) VALUES ('Nářadí');
 INSERT INTO QOption (content) VALUES ('Kresba');
 INSERT INTO QOption (content) VALUES ('Cihla');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Vztah použití či vytvoření', 'Kuchař - Jídlo', 'Stavitel', 269, 270, 271, 272, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Vztah použití či vytvoření', 'Kuchař - Jídlo', 'Stavitel', 269, 270, 271, 272, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Sáč');
 INSERT INTO QOption (content) VALUES ('Sac');
 INSERT INTO QOption (content) VALUES ('Sác');
 INSERT INTO QOption (content) VALUES ('Asč');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Podobnost na úrovni zápisu', 'Mír - Rim', 'Čas', 273, 274, 275, 276, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Podobnost na úrovni zápisu', 'Mír - Rim', 'Čas', 273, 274, 275, 276, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Světlo');
 INSERT INTO QOption (content) VALUES ('Teplo');
 INSERT INTO QOption (content) VALUES ('Měsíc');
 INSERT INTO QOption (content) VALUES ('Den');
-INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Příčina a následek', 'Vítr - Vlny', 'Slunce', 277, 278, 279, 280, 'anatext', 'A');
+INSERT INTO Question (questionType, description, firstWord, option1, option2, option3, option4, type, variant) VALUES ('Příčina a následek', 'Vítr - Vlny', 'Slunce', 277, 278, 279, 280, 'anatext', 'B');
 
 INSERT INTO QOption (content) VALUES ('Vrtání');
 INSERT INTO QOption (content) VALUES ('Sekání');

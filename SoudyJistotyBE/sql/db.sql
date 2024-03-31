@@ -1,3 +1,4 @@
+CREATE DATABASE VyzkumSoudyDB;
 USE VyzkumSoudyDB;
 
 CREATE TABLE UserGroup (
@@ -44,9 +45,7 @@ CREATE TABLE DuoTest (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     userId VARCHAR(255),
-    userId2 VARCHAR(255),
-    FOREIGN KEY (userId) REFERENCES User(userKey),
-    FOREIGN KEY (userId2) REFERENCES User(userKey)
+    FOREIGN KEY (userId) REFERENCES User(userKey)
 );
 
 CREATE TABLE QOption (
@@ -78,6 +77,7 @@ CREATE TABLE AnswerSolo (
     wasCorrect BOOLEAN, -- option1
     secondBest BOOLEAN, -- option2
     answer TEXT,
+    answerId INT,
     trustScale INT,
     questionId INT,
     soloTestId INT,
@@ -85,5 +85,39 @@ CREATE TABLE AnswerSolo (
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (questionId) REFERENCES Question(ID),
     FOREIGN KEY (soloTestId) REFERENCES SoloTest(ID),
+    FOREIGN KEY (answerId) REFERENCES QOption(ID),
     FOREIGN KEY (userId) REFERENCES User(userKey)
+);
+
+CREATE TABLE BOT (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    variant VARCHAR(255),
+    successRate INT,
+    convictionRate INT
+);
+
+
+CREATE TABLE AnswerDuo (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    wasCorrect BOOLEAN, -- option1
+    secondBest BOOLEAN, -- option2
+    wasMatch BOOLEAN, -- option3
+    try INT,
+    answer TEXT,
+    answerId INT,
+    trustScale INT,
+    questionId INT,
+    wasBotCorrect Boolean,
+    botAnswerId INT,
+    botId INT,
+    duoTestId INT,
+    userId VARCHAR(255),
+    createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (questionId) REFERENCES Question(ID),
+    FOREIGN KEY (duoTestId) REFERENCES DuoTest(ID),
+    FOREIGN KEY (answerId) REFERENCES QOption(ID),
+    FOREIGN KEY (botAnswerId) REFERENCES QOption(ID),
+    FOREIGN KEY (userId) REFERENCES User(userKey),
+    FOREIGN KEY (botId) REFERENCES Bot(ID)
 );
