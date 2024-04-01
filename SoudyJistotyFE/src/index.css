@@ -26,6 +26,32 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+input[type="radio"] {
+  /* Adjust the scale factor as needed; 1.5 is an example that makes it 50% larger */
+  transform: scale(1.5);
+  /* Optional: Adjust the margin to ensure the larger radio buttons don't overlap other elements */
+  margin: 10px;
+}
+
 .cursor:hover {
   cursor: pointer;
+}
+
+.answer-4 {
+  flex: 1 1 50%;
+  margin-bottom: 10px;,
+}
+
+@media (max-width: 769px) {
+  .section {
+    padding:0;
+  }
+  .main {
+    padding: 10px;
+  }
+
+  .answer-4 {
+    flex: 1 1 100%;
+  }
+
 }

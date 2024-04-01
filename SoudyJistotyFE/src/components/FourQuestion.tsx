@@ -2,7 +2,7 @@ import React from 'react'
 import { Question } from '../types/types'
 import { shuffleArray } from '../utils/utils.ts'
 
-interface AnalogiesQuestionProps {
+interface FourQuestionQuestionProps {
   question: Question
   onAnswerChange: (selectedOptionId: {
     answerId: number
@@ -17,7 +17,7 @@ interface AnalogiesQuestionProps {
 
 let shuffledQuestions: any = {}
 
-const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
+export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
   question,
   onAnswerChange,
   selectedAnswer,
@@ -41,7 +41,6 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
     >
       <div className="box">
         <p className="is-size-4">{question.description}</p>
-        <p className="is-size-4">{`${question.firstWord}  -  ?`}</p>
         <div
           className="columns is-mobile is-multiline"
           style={{ justifyContent: 'center' }}
@@ -57,7 +56,11 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
                 <div className="answer answer-4" key={answerId}>
                   <label
                     className="radio"
-                    style={{ display: 'flex', alignItems: 'center' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      textAlign: 'left',
+                    }}
                   >
                     <input
                       type="radio"
@@ -71,7 +74,7 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
                       }
                       checked={selectedAnswer?.answerId === answerId}
                     />
-                    <span style={{ marginLeft: '8px' }}>{answerDesc}</span>
+                    <span style={{ marginLeft: '10px' }}>{answerDesc}</span>
                   </label>
                 </div>
               )
@@ -82,5 +85,3 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
     </div>
   )
 }
-
-export default AnalogiesQuestion

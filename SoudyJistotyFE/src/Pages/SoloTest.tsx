@@ -6,13 +6,14 @@ import BoolQuestion from '../Components/BoolQuestion.tsx'
 import AnalogiesQuestion from '../Components/AnalogiesQuestion.tsx'
 import SelfEvalSlider from '../Components/SelfEvalSlider.tsx'
 import { Pages } from '../store/pages.ts'
+import { FourQuestion } from '../Components/FourQuestion.tsx'
 
 let isLoading = false
 
 const questionComponents = {
   bool: BoolQuestion,
   anatext: AnalogiesQuestion,
-  alltext: AnalogiesQuestion,
+  alltext: FourQuestion,
   image: AnalogiesQuestion,
 }
 
@@ -24,28 +25,30 @@ export const SoloTest = () => {
     isTestRunning,
   } = useTests()
   const [question, setQuestion] = useState<Question>()
-  const [selfEval, setSelfEval] = useState<number>(50)
+  const [selfEval, setSelfEval] = useState<number>()
   const [isFirstRender, setIsFirstRender] = useState(true)
-  const [selectedAnswer, setSelectedAnswer] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState<{
+    answerId: number
+    answer: string
+  }>()
   const [showSlider, setShowSlider] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
   const onAnswer = async () => {
-    console.log('onAnswer res:')
-    if (!question) return
+    if (!question || !selectedAnswer || !selfEval) return
 
-    const res = await setCurrentAnswer({
+    await setCurrentAnswer({
       question,
-      answerId: selectedAnswer,
+      answerId: selectedAnswer.answerId,
       trustScale: selfEval,
-      answer: 'nothing yet',
+      answer: selectedAnswer.answer,
     })
-    console.log('onAnswer res:', res)
     const q = await getCurrentQuestion(navigate)
 
     setQuestion(q)
-    setSelectedAnswer(0)
+    setSelfEval(undefined)
+    setSelectedAnswer(undefined)
     setShowSlider(false)
   }
 
@@ -55,7 +58,6 @@ export const SoloTest = () => {
     }
     const fetchData = async () => {
       isLoading = true
-      console.log('test:', await isTestRunning())
       if (!(await isTestRunning())) {
         navigate(Pages.WaitStart)
         isLoading = false
@@ -64,8 +66,6 @@ export const SoloTest = () => {
       await createSoloTest()
       const question = await getCurrentQuestion(navigate)
       setQuestion(question)
-      console.log('QQQ', question)
-      console.log('isFirstRender', isFirstRender)
       isLoading = false
       setIsFirstRender(false)
     }
@@ -75,19 +75,18 @@ export const SoloTest = () => {
   if (!question) return <div>Loading...</div>
   const QuestionComponent = questionComponents[question.type]
 
-  console.log('LOG', selectedAnswer, isFirstRender, question)
-
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
       {!showSlider ? (
         <>
           <QuestionComponent
             question={question}
+            selectedAnswer={selectedAnswer}
             onAnswerChange={setSelectedAnswer}
           />
           <button
             className="button is-primary mt-3"
-            disabled={selectedAnswer === 0}
+            disabled={!selectedAnswer?.answerId}
             onClick={() => setShowSlider(true)}
           >
             Pokračovat
