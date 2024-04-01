@@ -7,6 +7,7 @@ CREATE TABLE UserGroup (
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     allowRegistration BOOLEAN DEFAULT FALSE,
     active BOOLEAN DEFAULT FALSE
+    activeDuo BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE User (
@@ -21,6 +22,7 @@ CREATE TABLE User (
     soloTestVariantOrder VARCHAR(255) DEFAULT '["bool", "alltext", "anatext", "image"]',
     duoTestVariantOrder VARCHAR(255) DEFAULT '["alltext", "bool", "anatext", "image"]',
     botVariant VARCHAR(255) NULL,
+    seeAnswers BOOLEAN DEFAULT FALSE,
     groupId INT NULL,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (groupId) REFERENCES UserGroup(groupId)
@@ -93,16 +95,19 @@ CREATE TABLE BOT (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     variant VARCHAR(255),
-    successRate INT,
-    convictionRate INT
+    confidence INT,
+    competence INT,
+    answers VARCHAR(1000),
+    userId VARCHAR(255),
+    FOREIGN KEY (userId) REFERENCES User(userKey)
 );
-
 
 CREATE TABLE AnswerDuo (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     wasCorrect BOOLEAN, -- option1
     secondBest BOOLEAN, -- option2
-    wasMatch BOOLEAN, -- option3
+    wasMatch BOOLEAN DEFAULT FALSE,
+    isFinal BOOLEAN DEFAULT FALSE,
     try INT,
     answer TEXT,
     answerId INT,

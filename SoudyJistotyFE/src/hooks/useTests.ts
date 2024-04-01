@@ -5,10 +5,9 @@ import { Pages } from '../store/pages.ts'
 export const useTests = () => {
   const isTestRunning = async () => {
     const [error, res] = await request('test/isRunning')
-    console.log(error, res)
     if (error) {
       console.error('isTestRunning error', error)
-      return
+      return false
     }
     console.log('isTestRunning res', res)
     return res.isTestRunning
@@ -41,7 +40,7 @@ export const useTests = () => {
       return
     }
     console.log('setCurrentAnswer res', res)
-    return res.answer
+    return res
   }
 
   const createSoloTest = async () => {

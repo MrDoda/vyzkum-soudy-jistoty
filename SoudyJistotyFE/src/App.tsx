@@ -24,7 +24,6 @@ export function App() {
           <Route path={Pages.SoloTest} Component={SoloTest} />
         </Routes>
       </Router>
-      <div>alerts</div>
     </>
   )
 }

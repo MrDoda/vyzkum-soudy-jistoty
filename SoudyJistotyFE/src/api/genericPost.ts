@@ -10,6 +10,7 @@ export async function request(
     userKey: localStorage.getItem('userKey'),
     isAdmin: localStorage.getItem('isAdmin'),
     soloTest: localStorage.getItem('soloTest'),
+    duoTest: localStorage.getItem('duoTest'),
   }
 
   try {

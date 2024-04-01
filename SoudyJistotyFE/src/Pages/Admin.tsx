@@ -30,6 +30,10 @@ export const Admin = () => {
     updateGroup({ ...group, active: !group?.active })
   }
 
+  const handleDuoToggle = () => {
+    updateGroup({ ...group, activeDuo: !group?.activeDuo })
+  }
+
   useEffect(() => {
     getGroups()
   }, [])
@@ -43,7 +47,8 @@ export const Admin = () => {
             <td>Name</td>
             <td>Created at</td>
             <td>Registration?</td>
-            <td>Active?</td>
+            <td>Solo Test Active?</td>
+            <td>Duo Test Active?</td>
           </tr>
         </thead>
         <tbody>
@@ -65,6 +70,7 @@ export const Admin = () => {
                 </td>
                 <td>{iteratedGroup.allowRegistration ? 'TRUE' : 'FALSE'}</td>
                 <td>{iteratedGroup.active ? 'TRUE' : 'FALSE'}</td>
+                <td>{iteratedGroup.activeDuo ? 'TRUE' : 'FALSE'}</td>
               </tr>
             )
           })}
@@ -72,7 +78,7 @@ export const Admin = () => {
         {!isCreate && (
           <tfoot>
             <tr>
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <button
                   className={'button is-fullwidth'}
                   onClick={() => {
@@ -145,6 +151,16 @@ export const Admin = () => {
             Stop
           </button>{' '}
         </>
+      )}
+      {group && !group?.activeDuo && (
+        <button className="button is-success" onClick={handleDuoToggle}>
+          Start DuoTest
+        </button>
+      )}
+      {group && !!group?.activeDuo && (
+        <button onClick={handleDuoToggle} className="button is-danger">
+          Stop DuoTest
+        </button>
       )}
       {group && <Grouplist group={group} />}
     </div>

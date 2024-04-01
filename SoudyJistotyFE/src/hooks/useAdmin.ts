@@ -39,8 +39,9 @@ export const useAdmin = () => {
     await getGroups()
   }
 
-  const getGroupUsers = async (groupId: number) => {
-    const [error, response] = await request(`admin/groupUsers/${groupId}`)
+  const getGroupUsers = async (group: Partial<TestGroup>) => {
+    console.log('XXXXX')
+    const [error, response] = await request(`admin/groups/users`, group)
     if (error || !Array.isArray(response)) {
       console.error('getGroupUsers error', error)
       return

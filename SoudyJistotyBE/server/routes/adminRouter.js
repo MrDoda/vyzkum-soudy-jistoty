@@ -78,7 +78,9 @@ const adminRouter = (database) =>
         newGroup.active ? 1 : 0
       }, allowRegistration = ${
         newGroup.allowRegistration ? 1 : 0
-      } WHERE groupId = ${newGroup.groupId};`
+      } , activeDuo = ${newGroup.activeDuo ? 1 : 0} WHERE groupId = ${
+        newGroup.groupId
+      };`
 
       database.query(update, [], (error, results) => {
         if (error) {
@@ -87,6 +89,22 @@ const adminRouter = (database) =>
         }
 
         return res.send({ status: 201 })
+      })
+    })
+    .post('/groups/users', async (req, res) => {
+      console.log('/groups/users', req.body)
+      if (!getIsAdmin(req)) {
+        return res.sendStatus(403)
+      }
+      const selectedGroup = req.body
+      const usersQuery = `SELECT * FROM User WHERE groupId = ${selectedGroup.groupId};`
+      database.query(usersQuery, [], (error, results) => {
+        if (error || (Array.isArray(results) && results.length < 1)) {
+          console.error('no users', error, results)
+          return res.sendStatus(404)
+        }
+
+        return res.send(results)
       })
     })
 

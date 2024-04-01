@@ -25,3 +25,7 @@ input[type="checkbox"] {
 .table.is-hoverable tbody tr {
   cursor: pointer;
 }
+
+.cursor:hover {
+  cursor: pointer;
+}

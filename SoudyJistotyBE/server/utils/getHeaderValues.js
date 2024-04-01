@@ -35,3 +35,14 @@ export const getSoloTest = (req) => {
 
   return possibleHeaders.soloTest
 }
+
+export const getDuoTest = (req) => {
+  let possibleHeaders = req.headers[customHeaderName]
+  try {
+    possibleHeaders = JSON.parse(possibleHeaders)
+  } catch {
+    return undefined
+  }
+
+  return possibleHeaders.duoTest
+}

@@ -1,9 +1,9 @@
-import { useTests } from '../hooks/useTests.ts'
 import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
+import { useDuoTests } from '../hooks/useDuoTests.ts'
 
 export const WaitForStartDuo = () => {
-  const { isTestRunning } = useTests()
+  const { isTestRunning } = useDuoTests()
 
   const navigate = useNavigate()
 

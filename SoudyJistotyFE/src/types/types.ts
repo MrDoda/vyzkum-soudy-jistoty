@@ -16,3 +16,17 @@ export interface Question {
   variant: string
   type: 'bool' | 'alltext' | 'anatext' | 'image'
 }
+
+export interface Subject2 {
+  ID: number
+  answerId: number
+}
+
+export interface SetDuoAnswer {
+  question: Question
+  answerId: number
+  answer: string
+  trustScale: number
+  isFinal: boolean
+  subject2: Subject2
+}

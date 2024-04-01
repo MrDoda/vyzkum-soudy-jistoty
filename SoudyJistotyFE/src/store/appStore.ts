@@ -6,6 +6,7 @@ export interface TestGroup {
   active: boolean
   createdDate: string
   allowRegistration: boolean
+  activeDuo: boolean
 }
 
 export interface User {
@@ -18,6 +19,10 @@ export interface User {
   soloTestVariant: string
   duoTestVariant: string
   botVariant: string
+  soloTestQuestions: string
+  duoTestQuestions: string
+  duoTestVariantOrder: string
+  soloTestVariantOrder: string
 }
 
 interface AppState {

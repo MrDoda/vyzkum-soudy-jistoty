@@ -1,119 +1,57 @@
 const express = require('express')
-const { getUserKey, getSoloTest } = require('../utils/getHeaderValues')
+const { getUserKey, getDuoTest } = require('../utils/getHeaderValues')
 const { numberOfQuestionsPerVariant } = require('../config')
+const getDb = require('../database')
+const { getUser } = require('../entity_manipulation/user')
+const { getLastQuestion } = require('../entity_manipulation/lastAnswer')
+const { getCurrentQuestion } = require('../entity_manipulation/questionQuery')
+const { setDuoAnswer } = require('../entity_manipulation/setDuoAnswer')
 const router = express.Router()
+
+const dbPromise = getDb(true)
 
 const duoRouter = (database) =>
   router
-    .post('/getCurrentQuestion', (req, res) => {
-      console.log('/test/getCurrentQuestion')
-      const userKey = getUserKey(req)
+    .post('/isRunning', async (req, res) => {
+      console.log('duo/isRunning')
+      const isTestRunning = 'SELECT * FROM userGroup WHERE activeDuo = 1;'
 
-      const query = `SELECT * FROM user WHERE userKey = "${userKey}";`
-      database.query(query, [], (error, results) => {
+      database.query(isTestRunning, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
-          console.error('Login Failed', error, results)
-          return res.sendStatus(403)
+          console.error('Not Allowed start', error, results)
+          return res.sendStatus(404)
         }
-        const user = results[0]
-
-        try {
-          user.soloTestQuestions = JSON.parse(user.soloTestQuestions)
-          user.soloTestVariantOrder = JSON.parse(user.soloTestVariantOrder)
-
-          if (!user.currentVariant) {
-            user.currentVariant = user.soloTestVariantOrder[0]
-          }
-
-          if (
-            user.soloTestQuestions.length >=
-            numberOfQuestionsPerVariant[user.currentVariant]
-          ) {
-            user.soloTestVariantOrder = user.soloTestVariantOrder.filter(
-              (variant) => variant !== user.currentVariant
-            )
-            user.currentVariant = user.soloTestVariantOrder[0]
-            user.soloTestQuestions = []
-          }
-        } catch {
-          console.log('Failed to get current question from user IDS')
-        }
-
-        const questionQuery = `SELECT * FROM Question WHERE ${
-          user.soloTestQuestions.length > 0
-            ? `ID NOT IN (${user.soloTestQuestions.join(',')}) AND`
-            : ''
-        } variant = '${user.soloTestVariant}' AND type = '${
-          user.currentVariant
-        }' ORDER BY RAND() LIMIT 1;`
-
-        console.log('questionQuery', questionQuery)
-
-        database.query(questionQuery, [], (error, questionResult) => {
-          if (error) {
-            console.error('No Question?', error, questionResult)
-            return res.sendStatus(404)
-          }
-          if (questionResult.length < 1) {
-          }
-
-          const question = questionResult[0]
-
-          if (!question) {
-            return res.send({ testFinished: true })
-          }
-
-          user.soloTestQuestions.push(question.ID)
-          const stringifiedSoloTestQuestions = JSON.stringify(
-            user.soloTestQuestions
-          )
-
-          const stringifiedSoloTestVariantOrder = JSON.stringify(
-            user.soloTestVariantOrder
-          )
-
-          const updateQuestions = `UPDATE User SET soloTestQuestions = '${stringifiedSoloTestQuestions}', soloTestVariantOrder = '${stringifiedSoloTestVariantOrder}' WHERE userKey = '${userKey}';`
-          database.query(updateQuestions, [], (error, userResult) => {
-            if (error) {
-              console.error('Failed to update user', error, userResult)
-              return res.sendStatus(404)
-            }
-
-            return res.send({ question })
-          })
-        })
+        return res.send({ isTestRunning: true })
       })
     })
 
-    .post('/setCurrentQuestion', (req, res) => {
-      console.log('/test/setCurrentQuestion')
+    .post('/getCurrentQuestion', async (req, res) => {
+      console.log('/duo/getCurrentQuestion')
       const userKey = getUserKey(req)
-      const soloTestId = getSoloTest(req)
-      const { question, answerId, answer, trustScale } = req.body
 
-      if (!question || !answer || !trustScale) {
-        return res.sendStatus(401)
+      const user = await getUser(userKey)
+      if (!user) {
+        console.error('Login Failed')
+        return res.sendStatus(403)
       }
 
-      const wasCorrect = question?.option1 == answerId ? 1 : 0
-      const secondBest = question?.option2 == answerId ? 1 : 0
+      const lastQuestion = await getLastQuestion(user)
+      if (lastQuestion) {
+        return res.send({ question: lastQuestion })
+      }
 
-      const setAnswerQuery = `INSERT INTO AnswerSolo (wasCorrect, secondBest, answer, trustScale, questionId, soloTestId, userId) VALUES (${wasCorrect}, ${secondBest}, '${answer}', ${trustScale}, ${question.ID}, ${soloTestId}, '${userKey}');`
-      console.log('setAnswerQuery', setAnswerQuery)
+      const response = await getCurrentQuestion(user)
 
-      database.query(setAnswerQuery, [], (error, results) => {
-        if (error || (Array.isArray(results) && results.length < 1)) {
-          console.error('Answer not saved', error, results)
-          return res.sendStatus(402)
-        }
-        // TBD update how many are correct right now
-        return res.send({ wasCorrect })
-      })
+      if (!response) {
+        return res.sendStatus(404)
+      }
+
+      res.send(response)
     })
-    .post('/createSoloTest', (req, res) => {
-      console.log('/test/createSoloTest', getUserKey(req))
-      const userKey = getUserKey(req)
 
+    .post('/createDuoTest', async (req, res) => {
+      console.log('duo/createDuoTest')
+      const userKey = getUserKey(req)
       if (!userKey) {
         console.error('No userKey')
         res.status(403)
@@ -123,28 +61,60 @@ const duoRouter = (database) =>
         })
       }
 
-      const selectUserSoloTest = `SELECT * FROM SoloTest WHERE userId = (?);`
+      const selectUserDuoTest = `SELECT * FROM DuoTest WHERE userId = (?);`
 
-      database.query(selectUserSoloTest, [userKey], (error, results) => {
+      database.query(selectUserDuoTest, [userKey], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
-          console.error('Couldnt create soloTest', error, results)
+          console.error('Couldnt create duoTest', error, results)
 
-          const createSoloTestQuery = `INSERT INTO SoloTest (userId) VALUES (?);`
+          const createDuoTestQuery = `INSERT INTO DuoTest (userId) VALUES (?);`
 
-          database.query(createSoloTestQuery, [userKey], (error, results) => {
+          database.query(createDuoTestQuery, [userKey], (error, results) => {
             if (error) {
-              console.error('Couldnt create soloTest', error, results)
+              console.error('Couldnt create duoTest', error, results)
               return res.sendStatus(404)
             }
             console.log('results', results)
-            return res.send({ soloTest: results.insertId })
+            return res.send({ duoTest: results.insertId })
           })
 
           return
         }
-        console.log('found soloTest for userKey')
-        return res.send({ soloTest: results[0].ID })
+        console.log('found duoTest for userKey')
+        return res.send({ duoTest: results[0].ID })
       })
+    })
+    .post('/setCurrentQuestion', async (req, res) => {
+      console.log('/duo/setCurrentQuestion', req.body)
+      const { question, answerId, answer, trustScale, isFinal, subject2 } =
+        req.body
+      const userKey = getUserKey(req)
+      const duoTestId = getDuoTest(req)
+      if (!userKey) {
+        console.error('Login Failed')
+        return res.sendStatus(403)
+      }
+      if (!question || !answerId || !answer || typeof trustScale !== 'number') {
+        console.error('Missing data')
+        return res.sendStatus(401)
+      }
+
+      const isSaved = await setDuoAnswer({
+        answerId,
+        trustScale,
+        question,
+        duoTestId,
+        userKey,
+        answer,
+        isFinal,
+        subject2,
+      })
+      if (!isSaved) {
+        console.error('Answer not saved')
+        return res.sendStatus(402)
+      }
+
+      return res.send({ wasCorrect: question?.option1 == answerId ? 1 : 0 })
     })
 
 module.exports = duoRouter
