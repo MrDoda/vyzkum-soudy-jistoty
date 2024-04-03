@@ -1,6 +1,7 @@
 import React from 'react'
 import { Question, Subject2 } from '../types/types'
 import { shuffleArray } from '../utils/utils.ts'
+import { oponentBorder } from './FourQuestion.tsx'
 
 interface FourQuestionQuestionProps {
   question: Question
@@ -13,29 +14,13 @@ interface FourQuestionQuestionProps {
     answerId: number
     answer: string
   }
-  subject2?: Subject2
-}
 
-export const oponentBorder = {
-  position: 'absolute',
-  display: 'flex',
-  margin: 'auto',
-  right: 0,
-  backgroundColor: '#ffb70f',
-  color: 'rgba(0, 0, 0, 0.7)',
-  border: '1px solid transparent',
-  height: '100%',
-  borderTopRightRadius: '5px',
-  borderBottomRightRadius: '5px',
-  fontSize: '11px',
-  lineHeight: '100%',
-  alignItems: 'center',
-  justifyContent: 'center',
+  subject2?: Subject2
 }
 
 let shuffledQuestions: any = {}
 
-export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
+export const PictureQuestion: React.FC<FourQuestionQuestionProps> = ({
   question,
   onAnswerChange,
   selectedAnswer,
@@ -52,12 +37,13 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
   }
 
   const questions = shuffledQuestions[question.ID]
-
   let subjectAnswer
   if (subject2) {
     subjectAnswer = questions.find(
       (q: any) => q.answerId === subject2.answerId
     )?.answerDesc
+
+    console.log('subjectAnswer', !!subjectAnswer)
   }
 
   return (
@@ -66,7 +52,12 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
       style={{ marginTop: '20px', maxWidth: '800px', margin: 'auto' }}
     >
       <div className="box">
-        <p className="is-size-4">{question.description}</p>
+        <p className="is-size-4">
+          <img
+            src={`/tf1/${question.description}`}
+            alt={`question-${question.ID}`}
+          />
+        </p>
         <div
           className="columns is-mobile is-multiline"
           style={{ justifyContent: 'center' }}
@@ -86,6 +77,8 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
                       display: 'flex',
                       alignItems: 'center',
                       textAlign: 'left',
+                      flexDirection: 'column',
+                      marginLeft: 20,
                       position: 'relative',
                       border:
                         selectedAnswer?.answerId === answerId
@@ -96,6 +89,10 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
                       borderRadius: 5,
                     }}
                   >
+                    <img
+                      src={`/tf1/${answerDesc}`}
+                      alt={`question-${answerId}`}
+                    />
                     <input
                       type="radio"
                       name={`question-${answerId}`}
@@ -108,13 +105,12 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
                       }
                       checked={selectedAnswer?.answerId === answerId}
                     />
-                    <span style={{ marginLeft: '10px' }}>{answerDesc}</span>
                     {subject2 && subject2?.answerId === answerId && (
                       <div
                         // @ts-ignore
                         style={oponentBorder}
                       >
-                        OP
+                        O
                       </div>
                     )}
                   </label>
@@ -137,6 +133,7 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
               className="radio"
               style={{
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'left',
                 position: 'relative',
@@ -144,8 +141,12 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
                 borderRadius: 5,
               }}
             >
+              <img
+                src={`/tf1/${subjectAnswer}`}
+                alt={`question-${subjectAnswer}`}
+              />
               <input type="radio" checked={true} onChange={() => {}} />
-              <span style={{ marginLeft: '10px' }}>{subjectAnswer}</span>
+
               <div
                 // @ts-ignore
                 style={oponentBorder}

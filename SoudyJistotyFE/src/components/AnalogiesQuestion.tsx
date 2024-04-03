@@ -1,6 +1,7 @@
 import React from 'react'
-import { Question } from '../types/types'
+import { Question, Subject2 } from '../types/types'
 import { shuffleArray } from '../utils/utils.ts'
+import { oponentBorder } from './FourQuestion.tsx'
 
 interface AnalogiesQuestionProps {
   question: Question
@@ -13,6 +14,7 @@ interface AnalogiesQuestionProps {
     answerId: number
     answer: string
   }
+  subject2?: Subject2
 }
 
 let shuffledQuestions: any = {}
@@ -21,6 +23,7 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
   question,
   onAnswerChange,
   selectedAnswer,
+  subject2,
 }) => {
   if (!shuffledQuestions[question.ID]) {
     shuffledQuestions = {}
@@ -33,6 +36,12 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
   }
 
   const questions = shuffledQuestions[question.ID]
+  let subjectAnswer
+  if (subject2) {
+    subjectAnswer = questions.find(
+      (q: any) => q.answerId === subject2.answerId
+    )?.answerDesc
+  }
 
   return (
     <div
@@ -57,7 +66,17 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
                 <div className="answer answer-4" key={answerId}>
                   <label
                     className="radio"
-                    style={{ display: 'flex', alignItems: 'center' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      border:
+                        selectedAnswer?.answerId === answerId
+                          ? '1px solid #00d1b2'
+                          : subject2 && subject2?.answerId === answerId
+                            ? '1px solid #ffb70f'
+                            : '1px solid rgba(0, 0, 0, 0)',
+                      borderRadius: 5,
+                    }}
                   >
                     <input
                       type="radio"
@@ -72,6 +91,14 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
                       checked={selectedAnswer?.answerId === answerId}
                     />
                     <span style={{ marginLeft: '8px' }}>{answerDesc}</span>
+                    {subject2 && subject2?.answerId === answerId && (
+                      <div
+                        // @ts-ignore
+                        style={oponentBorder}
+                      >
+                        O
+                      </div>
+                    )}
                   </label>
                 </div>
               )
@@ -79,6 +106,38 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
           </div>
         </div>
       </div>
+      {subject2 && (
+        <div
+          className="box"
+          style={{ margin: 'auto', maxWidth: '60%', marginBottom: '10px' }}
+        >
+          <span style={{ marginLeft: '10px', marginBottom: '10px' }}>
+            Váš oponent označil:
+          </span>
+          <div className="answer answer-4">
+            <label
+              className="radio"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                textAlign: 'left',
+                position: 'relative',
+                border: '1px solid #ffb70f',
+                borderRadius: 5,
+              }}
+            >
+              <input type="radio" checked={true} onChange={() => {}} />
+              <span style={{ marginLeft: '10px' }}>{subjectAnswer}</span>
+              <div
+                // @ts-ignore
+                style={oponentBorder}
+              >
+                OP
+              </div>
+            </label>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

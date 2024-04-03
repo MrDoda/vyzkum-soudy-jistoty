@@ -44,10 +44,12 @@ input[type="radio"] {
 
 @media (max-width: 769px) {
   .section {
-    padding:0;
+    padding-left:0;
+    padding-right:0;
   }
   .main {
-    padding: 10px;
+    padding-left:10px;
+    padding-right:10px;
   }
 
   .answer-4 {

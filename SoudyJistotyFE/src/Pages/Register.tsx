@@ -44,8 +44,6 @@ export const Register = () => {
       setError('')
     }
 
-    console.log('disabled', disabled)
-
     return disabled
   }, [userKey, userKeyConfirm, email, emailConfirm])
 

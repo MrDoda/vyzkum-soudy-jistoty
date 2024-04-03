@@ -23,7 +23,7 @@ const SelfEvalSlider: React.FC<SelfEvalSliderProps> = ({
               step="1"
               min="50"
               max="100"
-              value={selfEval}
+              value={selfEval || 75}
               onChange={(e) => onSelfEvalChange(Number(e.target.value))}
               type="range"
             />

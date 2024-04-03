@@ -7,7 +7,7 @@ export const getIsAdmin = (req) => {
     return false
   }
 
-  if (possibleHeaders.isAdmin !== '1234') {
+  if (possibleHeaders.isAdmin !== '879500') {
     return false
   }
 

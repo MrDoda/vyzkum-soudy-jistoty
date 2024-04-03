@@ -40,8 +40,8 @@ export const createBot = async function ({ userKey }) {
   console.log('createBotQuery', createBotQuery)
   try {
     const [results] = await dbPromise.query(createBotQuery)
-    console.log('results', results)
-    return results[0]
+    console.log('bot created')
+    return true
   } catch (error) {
     console.error('Error creating the bot:', error)
     return undefined

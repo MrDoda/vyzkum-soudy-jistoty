@@ -9,29 +9,44 @@ export const useDuoTests = () => {
       console.error('isTestRunning error', error)
       return false
     }
-    console.log('isTestRunning res', res)
     return res.isTestRunning
   }
 
   const createSubject2 = async () => {
     const [error, res] = await request('subject2/createSubject')
-    console.log(error, res)
     if (error) {
       console.error('createSubject2 error', error)
       return
     }
-    console.log('createSubject2 res', res)
+    return res
+  }
+
+  const compareAnswers = async (
+    setSubject2: (subject2: Subject2) => void,
+    answerId: number,
+    subject2: Subject2,
+    questionId: number
+  ) => {
+    const [error, res] = await request('subject2/compareAnswers', {
+      answerId,
+      subject2,
+      questionId,
+    })
+    if (error) {
+      console.error('createSubject2 error', error)
+      return
+    }
+    console.log()
+    setSubject2(res.subject2)
     return res
   }
 
   const createDuoTest = async () => {
     const [error, res] = await request('duo/createDuoTest')
-    console.log(error, res)
     if (error) {
       console.error('createDuoTest error', error)
       return
     }
-    console.log('createDuoTest res', res)
     localStorage.setItem('duoTest', res.duoTest)
 
     await createSubject2()
@@ -44,22 +59,19 @@ export const useDuoTests = () => {
     question: Question
   ) => {
     const [error, res] = await request('subject2/answer', { question })
-    console.log(error, res)
     if (error) {
       console.error('getSubject2Answer error', error)
       return
     }
-    console.log('getSubject2Answer res', res)
     setSubject2(res.subject2)
     return res
   }
 
   const getCurrentQuestion = async (
     navigate: (path: string) => void,
-    setSubject2: (subject2: Subject2) => void
+    setSubject2?: (subject2: Subject2) => void
   ) => {
     const [error, res] = await request('duo/getCurrentQuestion')
-    console.log(error, res)
     if (error) {
       console.error('getCurrentQuestion error', error)
       return
@@ -68,7 +80,9 @@ export const useDuoTests = () => {
       navigate(Pages.FinishedTest)
     }
 
-    await getSubject2Answer(setSubject2, res.question as Question)
+    if (setSubject2) {
+      await getSubject2Answer(setSubject2, res.question as Question)
+    }
 
     return res.question as Question
   }
@@ -80,7 +94,6 @@ export const useDuoTests = () => {
       console.error('setCurrentQuestion error', error)
       return
     }
-    console.log('setCurrentQuestion res', res)
     return res
   }
 
@@ -89,5 +102,6 @@ export const useDuoTests = () => {
     createDuoTest,
     getCurrentQuestion,
     setCurrentQuestion,
+    compareAnswers,
   }
 }

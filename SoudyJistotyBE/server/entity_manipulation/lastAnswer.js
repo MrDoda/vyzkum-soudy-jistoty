@@ -3,13 +3,14 @@ import getDb from '../database'
 const dbPromise = getDb(true)
 
 export const getLastQuestion = async function (user, type = 'Duo') {
-  const questions = user[`${type.toLowerCase()}TestQuestions`]
+  const lastQuestion =
+    type === 'Duo' ? user.lastDuoQuestion : user.lastSoloQuestion
 
   let lastAnswer = undefined
 
-  if (questions.length > 0 && questions[questions.length - 1]) {
-    const lastQuestionId = questions[questions.length - 1]
-    const lastAnswerQuery = `SELECT * FROM Answer${type} WHERE questionId = ${lastQuestionId} and userId = '${user.userKey}';`
+  if (lastQuestion) {
+    const lastQuestionId = lastQuestion
+    const lastAnswerQuery = `SELECT * FROM Answer${type} WHERE questionId = ${lastQuestionId} and userId = '${user.userKey}' ORDER BY ID DESC LIMIT 1;`
     console.log('la', lastAnswerQuery)
     try {
       const [lastAnswerResult] = await dbPromise.query(lastAnswerQuery)
@@ -63,7 +64,6 @@ export const getLastQuestion = async function (user, type = 'Duo') {
           console.log('No results found for the last question.')
           return
         }
-
         return questionResult[0]
       } catch (error) {
         console.error('Error fetching the last question:', error)

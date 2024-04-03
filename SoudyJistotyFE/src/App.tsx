@@ -8,6 +8,7 @@ import { WaitForStart } from './Pages/WaitForStart.tsx'
 import { SoloTest } from './Pages/SoloTest.tsx'
 import { WaitForStartDuo } from './Pages/WaitForStartDuo.tsx'
 import { DuoTest } from './Pages/DuoTest.tsx'
+import { ThatsAll } from './Pages/ThatsAll.tsx'
 
 export function App() {
   return (
@@ -22,6 +23,8 @@ export function App() {
           <Route path={Pages.WaitStartDuo} Component={WaitForStartDuo} />
           <Route path={Pages.DuoTest} Component={DuoTest} />
           <Route path={Pages.SoloTest} Component={SoloTest} />
+          <Route path={Pages.FinishedTest} Component={ThatsAll} />
+          <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </Router>
     </>

@@ -30,6 +30,7 @@ const duoRouter = (database) =>
       const userKey = getUserKey(req)
 
       const user = await getUser(userKey)
+      console.log('user', user)
       if (!user) {
         console.error('Login Failed')
         return res.sendStatus(403)
@@ -39,6 +40,8 @@ const duoRouter = (database) =>
       if (lastQuestion) {
         return res.send({ question: lastQuestion })
       }
+
+      console.log('getting a new question!!')
 
       const response = await getCurrentQuestion(user)
 

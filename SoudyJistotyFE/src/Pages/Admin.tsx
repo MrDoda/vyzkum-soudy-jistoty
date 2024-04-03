@@ -53,7 +53,6 @@ export const Admin = () => {
         </thead>
         <tbody>
           {groups.map((iteratedGroup) => {
-            console.log('cs')
             const date = new Date(iteratedGroup.createdDate)
             return (
               <tr

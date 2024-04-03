@@ -10,10 +10,9 @@ export const WaitForStartDuo = () => {
   const onStartClick = async () => {
     const isRunning = await isTestRunning()
     if (isRunning) {
-      console.log('isRunning')
       navigate(Pages.DuoTest)
     } else {
-      console.log('isNotRunning')
+      console.error('isNotRunning')
     }
   }
   return (

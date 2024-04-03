@@ -9,13 +9,11 @@ export const useTests = () => {
       console.error('isTestRunning error', error)
       return false
     }
-    console.log('isTestRunning res', res)
     return res.isTestRunning
   }
 
   const getCurrentQuestion = async (navigate: (path: string) => void) => {
     const [error, res] = await request('test/getCurrentQuestion')
-    console.log(error, res)
     if (error) {
       console.error('getCurrentQuestion error', error)
       return
@@ -34,23 +32,19 @@ export const useTests = () => {
     trustScale: number
   }) => {
     const [error, res] = await request('test/setCurrentQuestion', answer)
-    console.log(error, res)
     if (error) {
       console.error('setCurrentAnswer error', error)
       return
     }
-    console.log('setCurrentAnswer res', res)
     return res
   }
 
   const createSoloTest = async () => {
     const [error, res] = await request('test/createSoloTest')
-    console.log(error, res)
     if (error) {
       console.error('createSoloTest error', error)
       return
     }
-    console.log('createSoloTest res', res)
     localStorage.setItem('soloTest', res.soloTest)
 
     return res

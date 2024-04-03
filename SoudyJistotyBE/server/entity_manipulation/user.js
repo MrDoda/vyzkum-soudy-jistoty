@@ -22,12 +22,19 @@ export const getUser = async (userKey) => {
 
       if (!user.duoVariant) {
         user.duoVariant = user.duoTestVariantOrder[0]
+        user.duoVariantEqual = user.duoTestVariantOrder[0]
       }
 
       if (
         user.duoTestQuestions.length >=
         numberOfQuestionsPerVariant[user.duoVariant]
       ) {
+        // Before resetting, store the last question in a new property for later use
+        if (user.duoTestQuestions.length > 0) {
+          user.lastDuoQuestion =
+            user.duoTestQuestions[user.duoTestQuestions.length - 1]
+        }
+
         user.duoTestVariantOrder = user.duoTestVariantOrder.filter(
           (variant) => variant !== user.duoVariant
         )
@@ -38,11 +45,8 @@ export const getUser = async (userKey) => {
       console.log('Failed to parse user data', error)
     }
 
-    if (
-      user.duoTestQuestions.length > 1 &&
-      user.duoTestQuestions[user.duoTestQuestions.length - 1]
-    ) {
-      user.lastQuestion =
+    if (!user.lastDuoQuestion && user.duoTestQuestions.length > 0) {
+      user.lastDuoQuestion =
         user.duoTestQuestions[user.duoTestQuestions.length - 1]
     }
 
@@ -58,6 +62,12 @@ export const getUser = async (userKey) => {
         user.soloTestQuestions.length >=
         numberOfQuestionsPerVariant[user.soloVariant]
       ) {
+        // Before resetting, store the last question in a new property for later use
+        if (user.soloTestQuestions.length > 0) {
+          user.lastSoloQuestion =
+            user.soloTestQuestions[user.soloTestQuestions.length - 1]
+        }
+
         user.soloTestVariantOrder = user.soloTestVariantOrder.filter(
           (variant) => variant !== user.soloVariant
         )
@@ -68,11 +78,8 @@ export const getUser = async (userKey) => {
       console.log('Failed to parse user data', error)
     }
 
-    if (
-      user.soloTestQuestions.length > 1 &&
-      user.soloTestQuestions[user.soloTestQuestions.length - 1]
-    ) {
-      user.lastQuestion =
+    if (!user.lastSoloQuestion && user.soloTestQuestions.length > 0) {
+      user.lastSoloQuestion =
         user.soloTestQuestions[user.soloTestQuestions.length - 1]
     }
 

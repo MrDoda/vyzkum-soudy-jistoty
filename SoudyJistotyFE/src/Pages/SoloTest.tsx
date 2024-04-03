@@ -7,6 +7,7 @@ import AnalogiesQuestion from '../Components/AnalogiesQuestion.tsx'
 import SelfEvalSlider from '../Components/SelfEvalSlider.tsx'
 import { Pages } from '../store/pages.ts'
 import { FourQuestion } from '../Components/FourQuestion.tsx'
+import { PictureQuestion } from '../Components/PictureQuestion.tsx'
 
 let isLoading = false
 
@@ -14,7 +15,7 @@ const questionComponents = {
   bool: BoolQuestion,
   anatext: AnalogiesQuestion,
   alltext: FourQuestion,
-  image: AnalogiesQuestion,
+  image: PictureQuestion,
 }
 
 export const SoloTest = () => {
@@ -70,6 +71,9 @@ export const SoloTest = () => {
       setIsFirstRender(false)
     }
     fetchData()
+    return () => {
+      isLoading = false
+    }
   }, [isFirstRender])
 
   if (!question) return <div>Loading...</div>

@@ -71,16 +71,21 @@ export const subject2Router = router
       })
     }
 
-    const { answerId, subject2 } = req.body
+    const { answerId, subject2, questionId } = req.body
+
+    if (!questionId || !answerId || !subject2) {
+      return res.sendStatus(405)
+    }
 
     const response = await compareAnswers({
       userKey,
       answerId,
       bot: subject2,
+      questionId,
     })
 
     if (!response) {
-      return res.sendStatus(400)
+      return res.sendStatus(404)
     }
 
     return res.send(response)
