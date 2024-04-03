@@ -5,8 +5,8 @@ let connection
 function initializeConnection() {
   connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root', // root
-    password: 'oskar', // oskar
+    user: 'myappuser', // root
+    password: 'secure_password', // oskar
     database: 'VyzkumSoudyDB',
     port: 3306,
   })
