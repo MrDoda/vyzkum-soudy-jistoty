@@ -36,7 +36,7 @@ export const createBot = async function ({ userKey }) {
     return undefined
   }
 
-  const createBotQuery = `INSERT INTO Bot (confidence, competence, userId, answers) VALUES (${bot.confidence}, ${bot.competence}, '${userKey}', '${answers}');`
+  const createBotQuery = `INSERT INTO BOT (confidence, competence, userId, answers) VALUES (${bot.confidence}, ${bot.competence}, '${userKey}', '${answers}');`
   console.log('createBotQuery', createBotQuery)
   try {
     const [results] = await dbPromise.query(createBotQuery)

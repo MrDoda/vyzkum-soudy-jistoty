@@ -9,7 +9,7 @@ const userRouter = (database) =>
       const { userKey, email, gender } = req.body
 
       const queryAllowedRegistration =
-        'SELECT * FROM userGroup WHERE allowRegistration = 1;'
+        'SELECT * FROM UserGroup WHERE allowRegistration = 1;'
 
       database.query(queryAllowedRegistration, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
@@ -19,7 +19,7 @@ const userRouter = (database) =>
         const group = results[0]
 
         if (group?.groupId && userKey && gender !== undefined) {
-          const createUserQuery = `INSERT INTO user (userKey, email, gender, groupId) VALUES ("${userKey}","${
+          const createUserQuery = `INSERT INTO User (userKey, email, gender, groupId) VALUES ("${userKey}","${
             email || ''
           }", ${gender}, ${group.groupId});`
           database.query(createUserQuery, [], (error, results) => {
@@ -38,7 +38,7 @@ const userRouter = (database) =>
 
       const { userKey } = req.body
 
-      const query = `SELECT * FROM user WHERE userKey = "${userKey}";`
+      const query = `SELECT * FROM User WHERE userKey = "${userKey}";`
       database.query(query, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
           console.error('Login Failed', error, results)

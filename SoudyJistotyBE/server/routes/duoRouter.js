@@ -14,7 +14,7 @@ const duoRouter = (database) =>
   router
     .post('/isRunning', async (req, res) => {
       console.log('duo/isRunning')
-      const isTestRunning = 'SELECT * FROM userGroup WHERE activeDuo = 1;'
+      const isTestRunning = 'SELECT * FROM UserGroup WHERE activeDuo = 1;'
 
       database.query(isTestRunning, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {

@@ -14,7 +14,7 @@ const testRouter = (database) =>
     .post('/isRunning', (req, res) => {
       console.log('/test/isRunning')
 
-      const isTestRunning = 'SELECT * FROM userGroup WHERE active = 1;'
+      const isTestRunning = 'SELECT * FROM UserGroup WHERE active = 1;'
 
       database.query(isTestRunning, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {

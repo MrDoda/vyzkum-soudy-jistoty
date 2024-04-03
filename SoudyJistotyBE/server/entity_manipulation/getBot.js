@@ -31,7 +31,7 @@ function calculateRoll({ confidence, modifier = 1, tries }) {
   return roll <= finalNumber
 }
 export const getBot = async (userKey, question) => {
-  const queryBot = `SELECT * FROM bot WHERE userId = "${userKey}";`
+  const queryBot = `SELECT * FROM BOT WHERE userId = "${userKey}";`
   try {
     const [results] = await dbPromise.query(queryBot)
     if (results.length > 0) {

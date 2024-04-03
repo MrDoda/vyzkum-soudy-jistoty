@@ -4,7 +4,7 @@ import getDb from '../database'
 const dbPromise = getDb(true)
 
 export const getUser = async (userKey) => {
-  const query = `SELECT * FROM user WHERE userKey = "${userKey}";`
+  const query = `SELECT * FROM User WHERE userKey = "${userKey}";`
 
   try {
     const [results] = await dbPromise.query(query)
