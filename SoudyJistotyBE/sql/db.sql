@@ -124,7 +124,7 @@ CREATE TABLE AnswerDuo (
     FOREIGN KEY (answerId) REFERENCES QOption(ID),
     FOREIGN KEY (botAnswerId) REFERENCES QOption(ID),
     FOREIGN KEY (userId) REFERENCES User(userKey),
-    FOREIGN KEY (botId) REFERENCES Bot(ID)
+    FOREIGN KEY (botId) REFERENCES BOT(ID)
 );
 
 INSERT INTO Admin (password, variant) VALUES ('879500', 'default');
