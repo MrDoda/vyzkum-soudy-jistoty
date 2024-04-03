@@ -51,6 +51,7 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
       <div className="box">
         <p className="is-size-4">{question.description}</p>
         <p className="is-size-4">{`${question.firstWord}  -  ?`}</p>
+        <p>"A je k B, jako C je k D" – doplňte analogii</p>
         <div
           className="columns is-mobile is-multiline"
           style={{ justifyContent: 'center' }}

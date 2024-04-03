@@ -88,9 +88,9 @@ export const Grouplist = ({ group }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {groupUsers.map((user) => {
+          {groupUsers.map((user, index) => {
             return (
-              <tr>
+              <tr key={`${user.userKey}_${index}`}>
                 <td>{user.userKey}</td>
                 <td>{user.groupId}</td>
                 <td>{user.gender}</td>

@@ -9,6 +9,9 @@ import { SoloTest } from './Pages/SoloTest.tsx'
 import { WaitForStartDuo } from './Pages/WaitForStartDuo.tsx'
 import { DuoTest } from './Pages/DuoTest.tsx'
 import { ThatsAll } from './Pages/ThatsAll.tsx'
+import { Pandas } from './Components/Pandas.tsx'
+import { Demographic } from './Components/Demographic.tsx'
+import { InformedDialog } from './Components/InformedDialog.tsx'
 
 export function App() {
   return (
@@ -24,6 +27,9 @@ export function App() {
           <Route path={Pages.DuoTest} Component={DuoTest} />
           <Route path={Pages.SoloTest} Component={SoloTest} />
           <Route path={Pages.FinishedTest} Component={ThatsAll} />
+          <Route path={Pages.Pandas} Component={Pandas} />
+          <Route path={Pages.Demographic} Component={Demographic} />
+          <Route path={Pages.InformedDialog} Component={InformedDialog} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </Router>

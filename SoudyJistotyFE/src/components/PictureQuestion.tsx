@@ -64,7 +64,7 @@ export const PictureQuestion: React.FC<FourQuestionQuestionProps> = ({
         >
           <div
             className="answers-container"
-            style={{ display: 'flex', flexWrap: 'wrap', paddingTop: '20px' }}
+            style={{ display: 'flex', paddingTop: '20px' }}
           >
             {questions.map(({ answerId, answerDesc }: any) => {
               if (!answerId && !answerDesc) return null

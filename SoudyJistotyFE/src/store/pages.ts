@@ -8,4 +8,7 @@ export enum Pages {
   WaitStart = '/wait-start',
   WaitStartDuo = '/wait-start-duo',
   FinishedTest = '/finished-all-tests',
+  Pandas = '/pandas',
+  Demographic = '/demographic',
+  InformedDialog = '/informed-dialog',
 }

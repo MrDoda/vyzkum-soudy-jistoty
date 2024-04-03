@@ -57,3 +57,13 @@ input[type="radio"] {
   }
 
 }
+
+@media (prefers-color-scheme: dark) {
+  .modal-background {
+    background-color: rgb(47 47 47 / 86%);
+
+  }
+}
+.modal-background {
+  background-color: rgb(47 47 47 / 86%);
+}

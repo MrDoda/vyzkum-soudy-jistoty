@@ -20,7 +20,6 @@ export async function request(
         'Content-Type': 'application/json',
         'X-Custom-Header': JSON.stringify(headersValue),
       },
-      credentials: 'include',
     }
 
     if (data !== undefined) {

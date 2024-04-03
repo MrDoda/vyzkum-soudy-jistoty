@@ -55,7 +55,7 @@ export const Register = () => {
       gender: gender != '0',
     })
     if (isUserCreated) {
-      navigate(Pages.WaitStart)
+      navigate(Pages.Demographic)
     }
     setError('Registrace jsou nyní vypnuté.')
   }

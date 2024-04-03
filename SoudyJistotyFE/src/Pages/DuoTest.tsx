@@ -48,7 +48,7 @@ export const DuoTest = () => {
   const waitForSubject = () => {
     setWaitForSubject2(true)
 
-    const randomTime = Math.floor(Math.random() * 51)
+    const randomTime = Math.floor(Math.random() * 2000)
 
     setTimeout(() => {
       setWaitForSubject2(false)
@@ -57,6 +57,9 @@ export const DuoTest = () => {
 
   const onAnswer = async () => {
     waitForSubject()
+    if (subject2 && subject2?.answerId === selectedAnswer?.answerId) {
+      return onFinalAnswer()
+    }
     setShowCompare(true)
     setShowSlider(false)
     if (!endTime) {

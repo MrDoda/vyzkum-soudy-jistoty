@@ -28,6 +28,24 @@ CREATE TABLE User (
     FOREIGN KEY (groupId) REFERENCES UserGroup(groupId)
 );
 
+CREATE TABLE UserDemo (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(255),
+    age VARCHAR(255),
+    universityName VARCHAR(255),
+    studyProgram VARCHAR(255),
+    yearOfStudy VARCHAR(255),
+    studioType VARCHAR(255),
+    FOREIGN KEY (userId) REFERENCES User(userKey)
+);
+
+CREATE TABLE UserPandas (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(255),
+    pandas VARCHAR(1000),
+    FOREIGN KEY (userId) REFERENCES User(userKey)
+);
+
 CREATE TABLE Admin (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     password VARCHAR(255),

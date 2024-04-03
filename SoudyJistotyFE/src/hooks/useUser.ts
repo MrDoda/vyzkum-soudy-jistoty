@@ -21,8 +21,28 @@ export const useUser = () => {
     localStorage.setItem('userKey', res.userKey)
   }
 
+  const setDemographic = async (demographic: any) => {
+    const [error] = await request('user/demo', demographic)
+    if (error) {
+      console.error('setDemographic error', error)
+      return
+    }
+    return true
+  }
+
+  const setPandas = async (pandas: any) => {
+    const [error] = await request('user/pandas', pandas)
+    if (error) {
+      console.error('setPandas error', error)
+      return
+    }
+    return true
+  }
+
   return {
     createUser,
     loginUser,
+    setDemographic,
+    setPandas,
   }
 }

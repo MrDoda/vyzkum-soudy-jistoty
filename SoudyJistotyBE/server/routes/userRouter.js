@@ -1,5 +1,9 @@
 const express = require('express')
+const getDb = require('../database')
+const { getUserKey } = require('../utils/getHeaderValues')
 const router = express.Router()
+
+const dbPromise = getDb(true)
 
 const userRouter = (database) =>
   router
@@ -50,4 +54,52 @@ const userRouter = (database) =>
         return res.send({ userKey })
       })
     })
+    .post('/demo', async (req, res) => {
+      console.log('/user/demo', req.body)
+      const userKey = getUserKey(req)
+      if (!userKey) {
+        console.error('No userKey 403')
+        return res.sendStatus(403)
+      }
+      try {
+        const { age, universityName, studyProgram, yearOfStudy, studioType } =
+          req.body
+
+        const sql = `INSERT INTO UserDemo (userId, age, universityName, studyProgram, yearOfStudy, studioType)
+                 VALUES (?, ?, ?, ?, ?, ?)`
+        const results = await dbPromise.execute(sql, [
+          userKey,
+          age,
+          universityName,
+          studyProgram,
+          yearOfStudy,
+          studioType,
+        ])
+
+        return res.send({ ok: true })
+      } catch (error) {
+        console.error('Error inserting user demo data.', error)
+        return res.sendStatus(405)
+      }
+    })
+    .post('/pandas', async (req, res) => {
+      console.log('/user/pandas', req.body)
+      const userKey = getUserKey(req)
+      if (!userKey) {
+        console.error('No userKey 403')
+        return res.sendStatus(403)
+      }
+
+      try {
+        const pandas = JSON.stringify(req.body)
+        const sql = `INSERT INTO UserPandas (userId, pandas) VALUES (?, ?)`
+        const results = await dbPromise.execute(sql, [userKey, pandas])
+
+        return res.send({ ok: true })
+      } catch (error) {
+        console.error('Error inserting user pandas data.', error)
+        return res.sendStatus(500)
+      }
+    })
+
 module.exports = userRouter

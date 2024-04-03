@@ -2,11 +2,18 @@ import { useState } from 'react'
 import { useAdmin } from '../hooks/useAdmin.ts'
 import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
+import InformedAgreement from '../Components/InformedAgreement.tsx'
 
 export const Home = () => {
   const [adminPassword, setAdminPassword] = useState('')
   const navigate = useNavigate()
   const { loginAdmin } = useAdmin()
+
+  const [isActive, setIsActive] = useState(false)
+
+  const toggleModal = () => {
+    setIsActive(!isActive)
+  }
 
   const onAdminLoginClick = async () => {
     if (await loginAdmin(adminPassword)) {
@@ -15,6 +22,10 @@ export const Home = () => {
   }
 
   const onLoginClick = async () => {
+    toggleModal()
+  }
+
+  const onAgreement = () => {
     navigate(Pages.UserCreate)
   }
 
@@ -45,6 +56,23 @@ export const Home = () => {
             </a>
           </div>
         </div>
+      </div>
+      <div className={`modal is-fullwidth ${isActive ? 'is-active' : ''}`}>
+        <div className="modal-background" onClick={toggleModal}></div>
+        <div className="modal-content">
+          <div className="box">
+            <h1 className="title">Informovaný souhlas</h1>
+            <InformedAgreement />
+            <button className="button is-success" onClick={onAgreement}>
+              Podepisuji a souhlasím
+            </button>
+          </div>
+        </div>
+        <button
+          className="modal-close is-large"
+          aria-label="Souhlasi s podminkami"
+          onClick={toggleModal}
+        ></button>
       </div>
     </section>
   )

@@ -1,0 +1,18 @@
+/* Custom styles to override Bulma's defaults */
+
+/* Apply a white background and a light gray text color for table cells */
+.pandas .table td, .table th {
+    background-color: #f1f1f1; /* White background for table cells */
+    color: #131313; /* A dark shade of gray for text to ensure readability */
+}
+
+/* Apply a darker gray for table headers for contrast */
+.pandas .table thead th {
+    background-color: #999999; /* A light gray background for headers */
+    color: #171717; /* A darker shade of gray for header text */
+}
+
+/* You might also want to style the radio buttons for consistency */
+.pandas input[type='radio'] {
+    accent-color: #3273dc; /* Bulma's default blue, for instance */
+}
