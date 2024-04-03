@@ -15,7 +15,7 @@ const emotionsList = [
   { name: 'Mít obavy', value: 9 },
   { name: 'Nepřátelský', value: 10 },
   { name: 'Inspirovaný', value: 11 },
-  { name: 'Zaujatý', value: 12 },
+  { name: 'Zaujatý (ve smyslu Zahloubaný)', value: 12 },
   { name: 'Podrážděný', value: 13 },
   { name: 'Roztěkaný', value: 14 },
   { name: 'Nervozní', value: 15 },
@@ -53,25 +53,34 @@ export const Pandas = () => {
           položku a označte, do jaké míry momentálně prožíváte tyto pocity.
         </p>
       </div>
-      <div className="table-container">
+      <div className="table-container sticky" style={{ borderRadius: 5 }}>
         <table className="table is-fullwidth is-striped">
           <thead>
             <tr>
-              <th>vůbec</th>
-              <th>velmi málo</th>
-              <th>málo</th>
-              <th>trochu</th>
-              <th>znatelně</th>
-              <th>hodně</th>
-              <th>extrémně hodně</th>
+              <th>Pocit</th>
+              <th>Neprožívám to vůbec</th>
+              <th>Velmi slabě</th>
+              <th>Slabě</th>
+              <th>Mírně</th>
+              <th>Středně</th>
+              <th>Silně</th>
+              <th>Velmi silně</th>
             </tr>
           </thead>
           <tbody>
             {emotionsList.map(({ name }, index) => (
               <tr key={index}>
-                <td>{name}</td>
-                {Array.from({ length: 6 }, (_, i) => i + 1).map((val) => (
-                  <td key={val}>
+                <td
+                  className={`${selectedValues[name] ? 'has-background-grey-light' : ''}`}
+                >
+                  {name}
+                </td>
+                {Array.from({ length: 7 }, (_, i) => i + 1).map((val) => (
+                  <td
+                    key={val}
+                    className={`${selectedValues[name] ? 'has-background-grey-light' : ''}`}
+                    style={{ textAlign: 'center' }}
+                  >
                     <label className="radio">
                       <input
                         type="radio"

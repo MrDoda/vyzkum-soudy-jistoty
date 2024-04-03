@@ -67,3 +67,16 @@ input[type="radio"] {
 .modal-background {
   background-color: rgb(47 47 47 / 86%);
 }
+
+.sticky {
+  max-height: calc(100vh - 300px); /* Adjust based on your needs */
+  overflow-y: auto;
+  display: block;
+}
+
+.sticky th {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Ensure the header is not transparent */
+  z-index: 1; /* Ensure the header overlaps the table rows when scrolling */
+}

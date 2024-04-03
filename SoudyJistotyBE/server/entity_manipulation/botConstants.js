@@ -16,6 +16,33 @@ export const botConstants = {
   LOW_CONFIDENCE_LOW_COMPETENCE: 4,
 }
 
+export function getBotConstant(input) {
+  try {
+    const number = Number(input) + 1
+
+    if (isNaN(number)) {
+      console.error('wrong bot variant')
+      return botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE
+    }
+
+    switch (number) {
+      case botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE:
+        return botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE
+      case botConstants.HIGH_CONFIDENCE_LOW_COMPETENCE:
+        return botConstants.HIGH_CONFIDENCE_LOW_COMPETENCE
+      case botConstants.LOW_CONFIDENCE_HIGH_COMPETENCE:
+        return botConstants.LOW_CONFIDENCE_HIGH_COMPETENCE
+      case botConstants.LOW_CONFIDENCE_LOW_COMPETENCE:
+        return botConstants.LOW_CONFIDENCE_LOW_COMPETENCE
+      default:
+        return botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE
+    }
+  } catch {
+    console.error('wrong bot variant')
+    return botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE
+  }
+}
+
 export const botProperties = {
   [botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE]: {
     confidence: 90,

@@ -18,9 +18,8 @@ export const WaitForStart = () => {
   return (
     <>
       <div className="container box" id="user_key_form">
-        <h2 className="title is-4">Vyčkejte na znamení začít</h2>
         <p className={'subtitle'}>
-          Tlačítko momentálně nic nedělá, až budou všichni připraveni dostanete
+          Tlačítko momentálně nic nedělá, až budou všichni připraveni, dostanete
           pokyn ke startu experimentu.
         </p>
 

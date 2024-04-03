@@ -1,4 +1,8 @@
-import { pickRandomBotProperties } from './botConstants'
+import {
+  botProperties,
+  getBotConstant,
+  pickRandomBotProperties,
+} from './botConstants'
 import getDb from '../database'
 import { numberOfQuestionsPerVariant } from '../config'
 
@@ -27,7 +31,18 @@ function generateAnswersArray(competence) {
 }
 
 export const createBot = async function ({ userKey }) {
-  const bot = pickRandomBotProperties()
+  const lastBotQuery = `SELECT * FROM BOT ORDER BY id DESC LIMIT 1;`
+  let variant
+  try {
+    const [results] = await dbPromise.query(lastBotQuery)
+    if (results.length > 0) {
+      console.log('Bot already exists')
+    }
+    variant = getBotConstant(results[0].variant)
+  } catch {}
+
+  const bot = botProperties[variant] || pickRandomBotProperties()
+
   let answers = '[]'
   try {
     answers = JSON.stringify(generateAnswersArray(bot.competence))
@@ -36,7 +51,7 @@ export const createBot = async function ({ userKey }) {
     return undefined
   }
 
-  const createBotQuery = `INSERT INTO BOT (confidence, competence, userId, answers) VALUES (${bot.confidence}, ${bot.competence}, '${userKey}', '${answers}');`
+  const createBotQuery = `INSERT INTO BOT (confidence, competence, userId, answers, variant) VALUES (${bot.confidence}, ${bot.competence}, '${userKey}', '${answers}', ${variant});`
   console.log('createBotQuery', createBotQuery)
   try {
     const [results] = await dbPromise.query(createBotQuery)

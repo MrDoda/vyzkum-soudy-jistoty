@@ -15,8 +15,11 @@ const SelfEvalSlider: React.FC<SelfEvalSliderProps> = ({
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
       <div className="container">
         <div className="box">
-          <p className="is-size-4">Nakolik jste si jisti předchozí odpovědi?</p>
-          <p> Vyberte na škále od 50% (hádám) do 100% (jsem si zcela jistý).</p>
+          <p className="is-size-4">
+            Kdyby v tomto testu někdo náhodně hádal odpovědi, uhodl by přibližně
+            polovinu odpovědí správně. Na kolik si věříte, že jste odpověděli
+            správně ?
+          </p>
           <div className="slider-container" style={{ padding: '20px' }}>
             <input
               className="slider is-fullwidth"
@@ -28,8 +31,9 @@ const SelfEvalSlider: React.FC<SelfEvalSliderProps> = ({
               onChange={(e) => onSelfEvalChange(Number(e.target.value))}
               type="range"
             />
-            <p>Sebehodnocení: {selfEval}</p>
+            <p>Sebehodnocení: {selfEval}%</p>
           </div>
+          <p> Vyberte na škále od 50% (hádám) do 100% (jsem si zcela jistý).</p>
         </div>
       </div>
       <div style={{ marginTop: '30px' }}>

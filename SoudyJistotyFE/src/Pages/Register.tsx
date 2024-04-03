@@ -174,7 +174,7 @@ export const Register = () => {
               className="button is-primary"
               disabled={isDisabled}
             >
-              Vytvořít a Pokračovat
+              Vytvořit a Pokračovat
             </button>
           </div>
           {error && (
