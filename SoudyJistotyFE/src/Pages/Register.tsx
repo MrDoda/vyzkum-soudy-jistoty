@@ -25,6 +25,11 @@ export const Register = () => {
 
     let disabled = false
 
+    if (!isKeyChecked) {
+      setError('Zaškrtněte, že jste si kód uložili.')
+      disabled = true
+    }
+
     if (userKey !== userKeyConfirm) {
       setError('Kódy se neshodují!')
       disabled = true
@@ -39,11 +44,12 @@ export const Register = () => {
     }
 
     if (gender === undefined) {
-      return true
+      disabled = true
     }
 
-    if (!isKeyChecked) {
-      return true
+    if (userKey.length !== 4) {
+      setError('Kód musí mít 4 znaky!')
+      disabled = true
     }
 
     if (!disabled) {
@@ -51,12 +57,12 @@ export const Register = () => {
     }
 
     return disabled
-  }, [userKey, userKeyConfirm, email, emailConfirm])
+  }, [userKey, userKeyConfirm, email, emailConfirm, isKeyChecked])
 
   const onCreateClick = async () => {
     setError('')
     const isUserCreated = await createUser({
-      userKey,
+      userKey: `${userKey}_${Math.random()}`,
       email,
       gender: gender != '0',
     })
@@ -72,11 +78,18 @@ export const Register = () => {
         <h2 className="title is-4">
           Vytvořte si svůj jedinečný identifikační kód
         </h2>
+        <article className="message is-warning">
+          <div className="message-body">
+            Zadejte svůj jedinečný kód, složený z PRVNÍCH DVOU písmen příjmení
+            vaší matky a POSLEDNÍCH DVOU čísel vašeho rodného čísla
+          </div>
+        </article>
         <article className="message is-info">
           <div className="message-body">
             Prosím uložte si tento kód, budete jej ještě potřebovat.
           </div>
         </article>
+
         <div className="field">
           <label className="label">Jedinečný Identifikační kód</label>
           <div className="control">
@@ -174,12 +187,12 @@ export const Register = () => {
         </div>
         <div className="field">
           <div className="control">
-            <label htmlFor="isChecked" className="checkbox">
+            <label htmlFor="isKeyChecked" className="checkbox">
               <input
                 type="checkbox"
-                name="isChecked"
-                id="isChecked"
-                onChange={() => setIsKeyChecked(!isChecked)}
+                name="isKeyChecked"
+                id="isKeyChecked"
+                onChange={() => setIsKeyChecked(!isKeyChecked)}
                 checked={isKeyChecked}
               />
               Kód jsem si uložil.
