@@ -1,8 +1,8 @@
 const numberOfQuestionsPerVariant = {
-  alltext: 2,
-  bool: 2,
-  anatext: 1,
-  image: 2,
+  alltext: 10,
+  bool: 10,
+  anatext: 10,
+  image: 5,
 }
 
 module.exports = {
