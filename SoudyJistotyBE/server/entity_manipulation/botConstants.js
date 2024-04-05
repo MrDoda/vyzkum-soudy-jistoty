@@ -45,19 +45,19 @@ export function getBotConstant(input) {
 
 export const botProperties = {
   [botConstants.HIGH_CONFIDENCE_HIGH_COMPETENCE]: {
-    confidence: 90,
+    confidence: 80,
     competence: 80,
   },
   [botConstants.HIGH_CONFIDENCE_LOW_COMPETENCE]: {
-    confidence: 90,
+    confidence: 80,
     competence: 50,
   },
   [botConstants.LOW_CONFIDENCE_HIGH_COMPETENCE]: {
-    confidence: 30,
+    confidence: 50,
     competence: 80,
   },
   [botConstants.LOW_CONFIDENCE_LOW_COMPETENCE]: {
-    confidence: 30,
+    confidence: 50,
     competence: 50,
   },
 }

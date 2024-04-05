@@ -72,79 +72,18 @@ export const Demographic = () => {
           </div>
         </div>
 
-        <div className="control">
-          <label className="radio">
+        <div className="field">
+          <label className="label">Ročník studia:</label>
+          <div className="control">
             <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('1')}
+              name="studyProgram"
+              className="input userKey"
+              placeholder="např.: Bc. 1 rok"
+              type="text"
+              value={yearOfStudy}
+              onChange={(e) => setYearOfStudy(e.target.value)}
             />
-            Bc. 1
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('2')}
-            />
-            Bc. 2
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('3')}
-            />
-            Bc. 3
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('4')}
-            />
-            Mgr. 4
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('5')}
-            />
-            Mgr. 5
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('6')}
-            />
-            Mgr. 6
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('7')}
-            />
-            PhDr. 7
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('8')}
-            />
-            PhDr. 8
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="foobar"
-              onChange={() => setYearOfStudy('9')}
-            />
-            PhDr. 9
-          </label>
+          </div>
         </div>
 
         <div className="field">

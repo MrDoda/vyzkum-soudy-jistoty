@@ -12,6 +12,8 @@ export const Register = () => {
   const [error, setError] = useState('')
   const [gender, setGender] = useState<string>('1')
 
+  const [isKeyChecked, setIsKeyChecked] = useState(false)
+
   const { createUser } = useUser()
 
   const navigate = useNavigate()
@@ -37,6 +39,10 @@ export const Register = () => {
     }
 
     if (gender === undefined) {
+      return true
+    }
+
+    if (!isKeyChecked) {
       return true
     }
 
@@ -164,6 +170,20 @@ export const Register = () => {
                 </select>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="field">
+          <div className="control">
+            <label htmlFor="isChecked" className="checkbox">
+              <input
+                type="checkbox"
+                name="isChecked"
+                id="isChecked"
+                onChange={() => setIsKeyChecked(!isChecked)}
+                checked={isKeyChecked}
+              />
+              Kód jsem si uložil.
+            </label>
           </div>
         </div>
 
