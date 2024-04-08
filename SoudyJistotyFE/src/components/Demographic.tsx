@@ -115,7 +115,7 @@ export const Demographic = () => {
               className="button is-primary"
               disabled={isDisabled}
             >
-              Vytvořít a Pokračovat
+              Vytvořit a Pokračovat
             </button>
           </div>
         </div>

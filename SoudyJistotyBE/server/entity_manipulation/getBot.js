@@ -32,6 +32,7 @@ function calculateRoll({ confidence, modifier = 1, tries }) {
 }
 export const getBot = async (userKey, question) => {
   const queryBot = `SELECT * FROM BOT WHERE userId = "${userKey}";`
+  console.log('queryBot', queryBot)
   try {
     const [results] = await dbPromise.query(queryBot)
     if (results.length > 0) {
@@ -48,6 +49,12 @@ export const getBot = async (userKey, question) => {
         bot.answerId = question?.option1
       } else {
         bot.answerId = question?.option2
+      }
+
+      try {
+        bot.answers.shift()
+      } catch {
+        bot.answers = []
       }
 
       return results[0]

@@ -1,6 +1,6 @@
 export const numberOfQuestionsPerVariant = {
-  alltext: 20,
-  bool: 20,
+  alltext: 10,
+  bool: 10,
   anatext: 10,
-  image: 20,
+  image: 5,
 }

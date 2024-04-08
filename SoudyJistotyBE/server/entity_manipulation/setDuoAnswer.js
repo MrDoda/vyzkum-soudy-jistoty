@@ -1,4 +1,5 @@
 import getDb from '../database'
+import { setBot } from './setBot'
 
 const dbPromise = getDb(true)
 
@@ -44,9 +45,10 @@ try ) VALUES (${wasCorrect}, ${secondBest},
   try {
     const [results] = await dbPromise.query(setAnswerQuery)
     console.log('results', results)
-    return true
   } catch (error) {
     console.error('Error setting the answer:', error)
     return false
   }
+
+  return await setBot(subject2)
 }
