@@ -12,6 +12,7 @@ import { ThatsAll } from './Pages/ThatsAll.tsx'
 import { Pandas } from './Components/Pandas.tsx'
 import { Demographic } from './Components/Demographic.tsx'
 import { InformedDialog } from './Components/InformedDialog.tsx'
+import { AfterDuoQuestions } from './Components/AfterDuoQuestions.tsx'
 
 export function App() {
   return (
@@ -30,6 +31,10 @@ export function App() {
           <Route path={Pages.Pandas} Component={Pandas} />
           <Route path={Pages.Demographic} Component={Demographic} />
           <Route path={Pages.InformedDialog} Component={InformedDialog} />
+          <Route
+            path={Pages.AfterTestQuestions}
+            element={<AfterDuoQuestions />}
+          />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </Router>

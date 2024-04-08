@@ -1,6 +1,7 @@
 import { useTests } from '../hooks/useTests.ts'
 import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
+import { SoloTestInfo } from '../Components/SoloTestInfo.tsx'
 
 export const WaitForStart = () => {
   const { isTestRunning } = useTests()
@@ -18,9 +19,8 @@ export const WaitForStart = () => {
   return (
     <>
       <div className="container box" id="user_key_form">
-        <p className={'subtitle'}>
-          Tlačítko momentálně nic nedělá, až budou všichni připraveni, dostanete
-          pokyn ke startu experimentu.
+        <p className={'box'}>
+          <SoloTestInfo />
         </p>
 
         <div id="submit">

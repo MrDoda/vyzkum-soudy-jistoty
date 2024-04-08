@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
 import { useDuoTests } from '../hooks/useDuoTests.ts'
+import { DuoTestInfo } from '../Components/DuoTestInfo.tsx'
 
 export const WaitForStartDuo = () => {
   const { isTestRunning } = useDuoTests()
@@ -19,9 +20,8 @@ export const WaitForStartDuo = () => {
     <>
       <div className="container box" id="user_key_form">
         <h2 className="title is-4">Vyčkejte na znamení začít</h2>
-        <p className={'subtitle'}>
-          Tlačítko momentálně nic nedělá, až budou všichni připraveni dostanete
-          pokyn ke startu experimentu.
+        <p className={'box'}>
+          <DuoTestInfo />
         </p>
 
         <div id="submit">

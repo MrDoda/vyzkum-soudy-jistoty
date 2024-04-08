@@ -30,6 +30,15 @@ export const useUser = () => {
     return true
   }
 
+  const setAfterTestQuestions = async (afterTestQuestions: any) => {
+    const [error] = await request('user/after', afterTestQuestions)
+    if (error) {
+      console.error('setAfterTestQuestions error', error)
+      return
+    }
+    return true
+  }
+
   const setPandas = async (pandas: any) => {
     const [error] = await request('user/pandas', pandas)
     if (error) {
@@ -44,5 +53,6 @@ export const useUser = () => {
     loginUser,
     setDemographic,
     setPandas,
+    setAfterTestQuestions,
   }
 }

@@ -47,13 +47,7 @@ export const getBot = async (userKey, question) => {
       if (bot.answerId && question?.option1) {
         bot.answerId = question?.option1
       } else {
-        const options = [
-          question?.option1,
-          question?.option2,
-          question?.option3,
-          question?.option4,
-        ].filter((option) => !!option)
-        bot.answerId = pickRandomWithWeights(options)
+        bot.answerId = question?.option2
       }
 
       return results[0]

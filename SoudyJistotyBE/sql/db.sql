@@ -39,6 +39,15 @@ CREATE TABLE UserDemo (
     FOREIGN KEY (userId) REFERENCES User(userKey)
 );
 
+CREATE TABLE AfterTestQuestions (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(255),
+    theoryOfCertainty LONGTEXT,
+	preStudy LONGTEXT,
+	decisionBasis LONGTEXT,
+    FOREIGN KEY (userId) REFERENCES User(userKey)
+);
+
 CREATE TABLE UserPandas (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(255),

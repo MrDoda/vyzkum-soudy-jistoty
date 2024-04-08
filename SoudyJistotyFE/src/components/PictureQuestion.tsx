@@ -19,7 +19,6 @@ interface FourQuestionQuestionProps {
 }
 
 let shuffledQuestions: any = {}
-
 export const PictureQuestion: React.FC<FourQuestionQuestionProps> = ({
   question,
   onAnswerChange,

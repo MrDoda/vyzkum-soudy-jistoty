@@ -101,5 +101,31 @@ const userRouter = (database) =>
         return res.sendStatus(500)
       }
     })
+    .post('/after', async (req, res) => {
+      console.log('/user/after', req.body)
+      const userKey = getUserKey(req)
+      if (!userKey) {
+        console.error('No userKey 403')
+        return res.sendStatus(403)
+      }
+
+      try {
+        const { theoryOfCertainty, preStudy, decisionBasis } = req.body
+
+        const sql = `INSERT INTO AfterTestQuestions (userId, theoryOfCertainty, preStudy, decisionBasis)
+                 VALUES (?, ?, ?, ?)`
+        const results = await dbPromise.execute(sql, [
+          userKey,
+          theoryOfCertainty,
+          preStudy,
+          decisionBasis,
+        ])
+
+        return res.send({ ok: true })
+      } catch (error) {
+        console.error('Error inserting user after data.', error)
+        return res.sendStatus(405)
+      }
+    })
 
 module.exports = userRouter

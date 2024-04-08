@@ -34,6 +34,9 @@ export const SoloTest = () => {
   }>()
   const [showSlider, setShowSlider] = useState<boolean>(false)
 
+  const [secondDisplayTime, setSecondDisplayTime] = useState<string>('00:30')
+  const [secondEndTime, setSecondEndTime] = useState<any>(null)
+
   const navigate = useNavigate()
 
   const onAnswer = async () => {
@@ -47,11 +50,55 @@ export const SoloTest = () => {
     })
     const q = await getCurrentQuestion(navigate)
 
+    if (q?.type === 'image') {
+      cancelSecondTimer()
+      if (!secondEndTime) {
+        startSecondTimer()
+      }
+    }
+
     setQuestion(q)
     setSelfEval(undefined)
     setSelectedAnswer(undefined)
     setShowSlider(false)
   }
+
+  const startSecondTimer = () => {
+    const now = Date.now()
+    const thirtySecondsLater = now + 30000 // 30000 ms = 30 seconds
+    setSecondEndTime(thirtySecondsLater)
+  }
+  const cancelSecondTimer = () => {
+    setSecondEndTime(null)
+    setSecondDisplayTime('00:30') // Reset the second timer display
+  }
+
+  useEffect(() => {
+    if (!secondEndTime) return // Use effect for the second timer
+
+    const interval = setInterval(() => {
+      const now = Date.now()
+      const secondsLeft = Math.round((secondEndTime - now) / 1000)
+
+      if (secondsLeft <= 0) {
+        clearInterval(interval)
+        setSecondDisplayTime('0:00')
+        setSecondEndTime(null) // Stop the second timer
+        setShowSlider(true)
+        if (!selectedAnswer?.answerId) {
+          setSelectedAnswer({
+            answerId: question?.option3 || -1,
+            answer: 'Time expired with no answer selected.',
+          })
+        }
+      } else {
+        const seconds = secondsLeft % 60
+        setSecondDisplayTime(`00:${seconds < 10 ? '0' : ''}${seconds}`)
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [secondEndTime, selectedAnswer, question])
 
   useEffect(() => {
     if (!isFirstRender || isLoading) {
@@ -79,8 +126,20 @@ export const SoloTest = () => {
   if (!question) return <div>Loading...</div>
   const QuestionComponent = questionComponents[question.type]
 
+  const isSecondTimeCritical = () => {
+    const seconds = Number(secondDisplayTime.split(':')[1])
+    return seconds < 10
+  }
+
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
+      {secondEndTime && (
+        <div
+          className={`second-timer ${isSecondTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
+        >
+          Zbývající čas: {secondDisplayTime}
+        </div>
+      )}
       {!showSlider ? (
         <>
           <QuestionComponent

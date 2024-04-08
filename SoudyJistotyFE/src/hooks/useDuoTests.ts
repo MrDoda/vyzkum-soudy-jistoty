@@ -77,7 +77,7 @@ export const useDuoTests = () => {
       return
     }
     if (res.testFinished) {
-      navigate(Pages.FinishedTest)
+      navigate(Pages.AfterTestQuestions)
     }
 
     if (setSubject2) {

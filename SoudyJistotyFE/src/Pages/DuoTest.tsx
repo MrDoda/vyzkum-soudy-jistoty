@@ -41,6 +41,9 @@ export const DuoTest = () => {
   const [displayTime, setDisplayTime] = useState<string>('2:00')
   const [endTime, setEndTime] = useState<any>(null)
 
+  const [secondDisplayTime, setSecondDisplayTime] = useState<string>('00:30')
+  const [secondEndTime, setSecondEndTime] = useState<any>(null)
+
   const [waitForSubject2, setWaitForSubject2] = useState<boolean>(false)
 
   const navigate = useNavigate()
@@ -62,6 +65,11 @@ export const DuoTest = () => {
     }
     setShowCompare(true)
     setShowSlider(false)
+
+    if (secondEndTime) {
+      cancelSecondTimer()
+    }
+
     if (!endTime) {
       startTimer()
     }
@@ -79,6 +87,13 @@ export const DuoTest = () => {
       subject2: subject2,
     })
     const q = await getCurrentQuestion(navigate, setSubject2)
+
+    if (q?.type === 'image') {
+      cancelSecondTimer()
+      if (!secondEndTime) {
+        startSecondTimer()
+      }
+    }
 
     setQuestion(q)
     setSelfEval(undefined)
@@ -119,9 +134,20 @@ export const DuoTest = () => {
     setEndTime(twoMinutesLater)
   }
 
+  const startSecondTimer = () => {
+    const now = Date.now()
+    const thirtySecondsLater = now + 30000 // 30000 ms = 30 seconds
+    setSecondEndTime(thirtySecondsLater)
+  }
+
   const cancelTimer = () => {
     setEndTime(null)
     setDisplayTime('2:00')
+  }
+
+  const cancelSecondTimer = () => {
+    setSecondEndTime(null)
+    setSecondDisplayTime('00:30') // Reset the second timer display
   }
 
   useEffect(() => {
@@ -144,7 +170,34 @@ export const DuoTest = () => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [endTime])
+  }, [endTime, onFinalAnswer])
+
+  useEffect(() => {
+    if (!secondEndTime) return // Use effect for the second timer
+
+    const interval = setInterval(() => {
+      const now = Date.now()
+      const secondsLeft = Math.round((secondEndTime - now) / 1000)
+
+      if (secondsLeft <= 0) {
+        clearInterval(interval)
+        setSecondDisplayTime('0:00')
+        setSecondEndTime(null) // Stop the second timer
+        setShowSlider(true)
+        if (!selectedAnswer?.answerId) {
+          setSelectedAnswer({
+            answerId: question?.option3 || -1,
+            answer: 'Time expired with no answer selected.',
+          })
+        }
+      } else {
+        const seconds = secondsLeft % 60
+        setSecondDisplayTime(`00:${seconds < 10 ? '0' : ''}${seconds}`)
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [secondEndTime, selectedAnswer, question])
 
   useEffect(() => {
     if (!isFirstRender || isLoading) {
@@ -178,6 +231,11 @@ export const DuoTest = () => {
     return minutes === 0 && seconds < 10
   }
 
+  const isSecondTimeCritical = () => {
+    const seconds = Number(secondDisplayTime.split(':')[1])
+    return seconds < 10
+  }
+
   if (waitForSubject2) {
     return <Spinner message="Vyčkejte než druhý z dvojice odpoví..." />
   }
@@ -188,6 +246,14 @@ export const DuoTest = () => {
           className={`timer ${isTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
         >
           Zbývající čas: {displayTime}
+        </div>
+      )}
+
+      {secondEndTime && (
+        <div
+          className={`second-timer ${isSecondTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
+        >
+          Zbývající čas: {secondDisplayTime}
         </div>
       )}
 

@@ -32,7 +32,7 @@ const InformedAgreement = () => (
       </p>
       <p className="paragraph">
         <span className="normaltextrun">Účast na experimentu Vám zabere </span>
-        <span className="normaltextrun">max. 60 minut</span>
+        <span className="normaltextrun">max. 30 minut</span>
         <span className="normaltextrun">
           . Veškerá data získaná v experimentu jsou anonymní, je tedy zaručeno,
           že Vaše osobní údaje nebudou nikde zveřejněny. Data budou uchovávána
