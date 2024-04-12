@@ -4,12 +4,14 @@ interface SelfEvalSliderProps {
   selfEval?: number
   onSelfEvalChange: (value: number) => void
   onAnswer: () => void
+  isDisabled?: boolean
 }
 
 const SelfEvalSlider: React.FC<SelfEvalSliderProps> = ({
   selfEval,
   onSelfEvalChange,
   onAnswer,
+  isDisabled,
 }) => {
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
@@ -39,7 +41,7 @@ const SelfEvalSlider: React.FC<SelfEvalSliderProps> = ({
       </div>
       <div style={{ marginTop: '30px' }}>
         <button
-          disabled={!selfEval}
+          disabled={!selfEval || isDisabled}
           className="button is-primary"
           onClick={onAnswer}
         >

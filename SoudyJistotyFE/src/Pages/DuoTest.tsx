@@ -46,6 +46,11 @@ export const DuoTest = () => {
 
   const [waitForSubject2, setWaitForSubject2] = useState<boolean>(false)
 
+  const [isLoadingOnLoopAnswer, setIsLoadingOnLoopAnswer] =
+    useState<boolean>(false)
+  const [isFinalAnswerLoading, setIsFinalAnswerLoading] =
+    useState<boolean>(false)
+
   const navigate = useNavigate()
 
   const waitForSubject = () => {
@@ -77,6 +82,8 @@ export const DuoTest = () => {
 
   const onFinalAnswer = async () => {
     if (!question || !subject2 || !selectedAnswer || !selfEval) return
+    if (isFinalAnswerLoading) return
+    setIsFinalAnswerLoading(true)
 
     await setCurrentQuestion({
       question,
@@ -102,10 +109,14 @@ export const DuoTest = () => {
     setShowCompare(false)
 
     cancelTimer()
+
+    setIsFinalAnswerLoading(false)
   }
 
   const onLoopAnswer = async () => {
     if (!question || !subject2 || !selectedAnswer || !selfEval) return
+    if (isLoadingOnLoopAnswer) return
+    setIsLoadingOnLoopAnswer(true)
 
     await setCurrentQuestion({
       question,
@@ -126,6 +137,8 @@ export const DuoTest = () => {
     setSelectedAnswer(undefined)
     setShowSlider(false)
     setShowCompare(false)
+
+    setIsLoadingOnLoopAnswer(false)
   }
 
   const startTimer = () => {
@@ -291,7 +304,7 @@ export const DuoTest = () => {
           {subject2?.answerId === selectedAnswer?.answerId && (
             <button
               className="button is-primary mt-3"
-              disabled={!selectedAnswer?.answerId}
+              disabled={!selectedAnswer?.answerId || isFinalAnswerLoading}
               onClick={onFinalAnswer}
             >
               Shoda
@@ -301,7 +314,7 @@ export const DuoTest = () => {
           {subject2?.answerId !== selectedAnswer?.answerId && (
             <button
               className="button is-primary mt-3"
-              disabled={!selectedAnswer?.answerId}
+              disabled={!selectedAnswer?.answerId || isLoadingOnLoopAnswer}
               onClick={onLoopAnswer}
             >
               {'Neshoda -> znovu'}

@@ -13,6 +13,7 @@ export const Register = () => {
   const [gender, setGender] = useState<string>('1')
 
   const [isKeyChecked, setIsKeyChecked] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { createUser } = useUser()
 
@@ -60,6 +61,9 @@ export const Register = () => {
   }, [userKey, userKeyConfirm, email, emailConfirm, isKeyChecked])
 
   const onCreateClick = async () => {
+    if (isLoading) return
+
+    setIsLoading(true)
     setError('')
     const isUserCreated = await createUser({
       userKey: `${userKey}_${Math.random()}`,
@@ -70,6 +74,7 @@ export const Register = () => {
       navigate(Pages.Demographic)
     }
     setError('Registrace jsou nyní vypnuté.')
+    setIsLoading(false)
   }
 
   return (
@@ -205,7 +210,7 @@ export const Register = () => {
             <button
               onClick={onCreateClick}
               className="button is-primary"
-              disabled={isDisabled}
+              disabled={isDisabled || isLoading}
             >
               Vytvořit a Pokračovat
             </button>

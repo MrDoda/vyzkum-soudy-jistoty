@@ -36,11 +36,14 @@ export const SoloTest = () => {
 
   const [secondDisplayTime, setSecondDisplayTime] = useState<string>('00:30')
   const [secondEndTime, setSecondEndTime] = useState<any>(null)
+  const [isAnswerLoading, setIsAnswerLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
   const onAnswer = async () => {
     if (!question || !selectedAnswer || !selfEval) return
+    if (isAnswerLoading) return
+    setIsAnswerLoading(true)
 
     await setCurrentAnswer({
       question,
@@ -61,6 +64,8 @@ export const SoloTest = () => {
     setSelfEval(undefined)
     setSelectedAnswer(undefined)
     setShowSlider(false)
+
+    setIsAnswerLoading(false)
   }
 
   const startSecondTimer = () => {
@@ -160,6 +165,7 @@ export const SoloTest = () => {
           selfEval={selfEval}
           onSelfEvalChange={setSelfEval}
           onAnswer={onAnswer}
+          isDisabled={isAnswerLoading}
         />
       )}
     </div>
