@@ -10,6 +10,7 @@ import { FourQuestion } from '../Components/FourQuestion.tsx'
 import { PictureQuestion } from '../Components/PictureQuestion.tsx'
 import { Spinner } from '../Components/Spinner.tsx'
 import { useLocalStorage } from '../hooks/useLocalStorage.ts'
+import { useSeeAnswers } from '../hooks/useSeeAnswers.ts'
 
 let isLoading = false
 
@@ -55,11 +56,12 @@ export const DuoTest = () => {
   const [correctCount, setCorrectCount] = useLocalStorage('DUO_correctCount', 0)
   const [maxCount, setMaxCount] = useLocalStorage('DUO_maxCount', 0)
 
-  const [wasCorrect2, setCorrectCount2] = useLocalStorage(
+  const [correctCount2, setCorrectCount2] = useLocalStorage(
     'DUO_correctCount_Subject2',
     0
   )
   const [maxCount2, setMaxCount2] = useLocalStorage('DUO_maxCount_Subject2', 0)
+  const seeAnswers = useSeeAnswers()
 
   const navigate = useNavigate()
 
@@ -110,7 +112,7 @@ export const DuoTest = () => {
     setMaxCount(maxCount + 1)
 
     if (wasCorrect2) {
-      setCorrectCount2(wasCorrect2 + 1)
+      setCorrectCount2(correctCount2 + 1)
     }
     setMaxCount2(maxCount2 + 1)
 
@@ -271,11 +273,13 @@ export const DuoTest = () => {
   }
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
-      <div className="panel">
-        Vaše skóre: <br />
-        Správně jste odpověděli {correctCount} z {maxCount} otázek. (
-        {Math.floor((correctCount / maxCount) * 100)}%)
-      </div>
+      {seeAnswers && (
+        <div className="panel">
+          Vaše skóre: <br />
+          Správně jste odpověděli {correctCount} z {maxCount} otázek. (
+          {Math.floor((correctCount / maxCount) * 100)}%)
+        </div>
+      )}
 
       {showQuestion && (
         <>
@@ -324,7 +328,7 @@ export const DuoTest = () => {
             selectedAnswer={selectedAnswer}
             onAnswerChange={() => {}}
             subject2={subject2}
-            wasCorrect2={wasCorrect2}
+            wasCorrect2={correctCount2}
             maxCount2={maxCount2}
           />
           {subject2?.answerId === selectedAnswer?.answerId && (

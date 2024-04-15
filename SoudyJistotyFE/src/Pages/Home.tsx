@@ -34,7 +34,7 @@ export const Home = () => {
       <div className="container">
         <div className="columns is-vcentered">
           <div className="column has-text-centered has-border">
-            <h2 className="title">Adminské rozhranní</h2>
+            <h2 className="title">Adminské rozhraní</h2>
             <p className="subtitle">Pouze pro administrátora testu</p>
             <input
               className="input is-medium mb-3"
@@ -49,7 +49,7 @@ export const Home = () => {
             </button>
           </div>
           <div className="column has-text-centered">
-            <h2 className="title">Rozhranní pro respondenty</h2>
+            <h2 className="title">Rozhraní pro respondenty</h2>
             <a onClick={onLoginClick} className="button is-primary">
               Přihlásit / Registrovat
             </a>

@@ -19,7 +19,11 @@ export const WaitForStartDuo = () => {
   return (
     <>
       <div className="container box" id="user_key_form">
-        <h2 className="title is-4">Vyčkejte na znamení začít</h2>
+        <h2 className="title is-4">
+          Přečtěte si instrukce a pokračujte v experimentu
+          <br />
+          Druhý respondent k Vám bude automaticky přidělen.
+        </h2>
         <p className={'box'}>
           <DuoTestInfo />
         </p>
@@ -30,7 +34,7 @@ export const WaitForStartDuo = () => {
               onClick={onStartClick}
               className="button is-fullwidth is-primary"
             >
-              Začít experiment
+              Instrukce jsem přečetl(a); Pokračovat v experimentu
             </button>
           </div>
         </div>
