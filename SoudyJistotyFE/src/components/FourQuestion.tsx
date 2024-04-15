@@ -1,6 +1,7 @@
 import React from 'react'
 import { Question, Subject2 } from '../types/types'
 import { shuffleArray } from '../utils/utils.ts'
+import { useSeeAnswers } from '../hooks/useSeeAnswers.ts'
 
 interface FourQuestionQuestionProps {
   question: Question
@@ -14,6 +15,8 @@ interface FourQuestionQuestionProps {
     answer: string
   }
   subject2?: Subject2
+  wasCorrect2?: number
+  maxCount2?: number
 }
 
 export const oponentBorder = {
@@ -40,7 +43,11 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
   onAnswerChange,
   selectedAnswer,
   subject2,
+  wasCorrect2,
+  maxCount2,
 }) => {
+  const seeAnswers = useSeeAnswers()
+
   if (!shuffledQuestions[question.ID]) {
     shuffledQuestions = {}
     shuffledQuestions[question.ID] = shuffleArray([
@@ -154,6 +161,12 @@ export const FourQuestion: React.FC<FourQuestionQuestionProps> = ({
               </div>
             </label>
           </div>
+          {seeAnswers && wasCorrect2 && maxCount2 && (
+            <div className="panel">
+              Správně odpověděl {wasCorrect2} z {maxCount2} otázek. (
+              {Math.floor((wasCorrect2 / maxCount2) * 100)}%)
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -23,6 +23,7 @@ export interface User {
   duoTestQuestions: string
   duoTestVariantOrder: string
   soloTestVariantOrder: string
+  seeAnswers: 0 | 1
 }
 
 interface AppState {

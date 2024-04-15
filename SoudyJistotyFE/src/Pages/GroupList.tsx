@@ -83,7 +83,8 @@ export const Grouplist = ({ group }: Props) => {
             <td>Gender</td>
             <td>SoloTest</td>
             <td>DuoTest</td>
-            <td>Bot Variant</td>
+            <td>Zpetna Vazba</td>
+            <td>Bot</td>
             <td>Created Date</td>
           </tr>
         </thead>
@@ -102,7 +103,11 @@ export const Grouplist = ({ group }: Props) => {
                   {user.duoTestVariant} | {getProgress('duo')(user)}% |{' '}
                   {getCurrentQType('duo')(user)}/{getMaxVariants('duo')(user)}
                 </td>
-                <td>{user.botVariant}</td>
+                <td>{user.seeAnswers ? 'true' : 'false'}</td>
+                <td>
+                  {/* @ts-ignore */}
+                  comp: {user.botCompetence}|conf: {user.botConfidence}
+                </td>
                 <td>{new Date(user.createdDate).toLocaleTimeString()}</td>
               </tr>
             )

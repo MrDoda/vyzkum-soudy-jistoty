@@ -4,14 +4,41 @@ import { useNavigate } from 'react-router-dom'
 import { Pages } from '../store/pages.ts'
 
 export const Login = () => {
-  const [userKey, setUserKey] = useState('')
+  const [editedUserKey, setEditedUserKey] = useState('')
+  const [loadedKey, setLoadedKey] = useState('')
 
   const { loginUser } = useUser()
   const navigate = useNavigate()
 
-  const onLoginClick = () => {
-    loginUser(userKey)
-    navigate(Pages.WaitStart)
+  const onLoginClick = async () => {
+    const { userKey } = await loginUser(editedUserKey)
+    setLoadedKey(userKey)
+  }
+
+  const onSoloClick = () => {
+    navigate(Pages.SoloTest)
+  }
+
+  const onDuoClick = () => {
+    navigate(Pages.DuoTest)
+  }
+
+  if (loadedKey) {
+    return (
+      <>
+        <div className="field">
+          <button onClick={onSoloClick} className="button is-primary">
+            Pokračovat v testu pro jednotlivce
+          </button>
+        </div>
+        <br />
+        <div className="field">
+          <button onClick={onDuoClick} className="button is-primary">
+            Pokračovat v testu pro dvojice
+          </button>
+        </div>
+      </>
+    )
   }
 
   return (
@@ -25,8 +52,8 @@ export const Login = () => {
               name="userKey"
               className="input userKey"
               type="text"
-              value={userKey}
-              onChange={(e) => setUserKey(e.target.value)}
+              value={editedUserKey}
+              onChange={(e) => setEditedUserKey(e.target.value)}
             />
           </div>
         </div>

@@ -9,6 +9,7 @@ import { useDuoTests } from '../hooks/useDuoTests.ts'
 import { FourQuestion } from '../Components/FourQuestion.tsx'
 import { PictureQuestion } from '../Components/PictureQuestion.tsx'
 import { Spinner } from '../Components/Spinner.tsx'
+import { useLocalStorage } from '../hooks/useLocalStorage.ts'
 
 let isLoading = false
 
@@ -51,6 +52,15 @@ export const DuoTest = () => {
   const [isFinalAnswerLoading, setIsFinalAnswerLoading] =
     useState<boolean>(false)
 
+  const [correctCount, setCorrectCount] = useLocalStorage('DUO_correctCount', 0)
+  const [maxCount, setMaxCount] = useLocalStorage('DUO_maxCount', 0)
+
+  const [wasCorrect2, setCorrectCount2] = useLocalStorage(
+    'DUO_correctCount_Subject2',
+    0
+  )
+  const [maxCount2, setMaxCount2] = useLocalStorage('DUO_maxCount_Subject2', 0)
+
   const navigate = useNavigate()
 
   const waitForSubject = () => {
@@ -85,7 +95,7 @@ export const DuoTest = () => {
     if (isFinalAnswerLoading) return
     setIsFinalAnswerLoading(true)
 
-    await setCurrentQuestion({
+    const { wasCorrect, wasCorrect2 } = await setCurrentQuestion({
       question,
       answerId: selectedAnswer.answerId,
       trustScale: selfEval,
@@ -93,13 +103,22 @@ export const DuoTest = () => {
       isFinal: true,
       subject2: subject2,
     })
+
+    if (wasCorrect) {
+      setCorrectCount(correctCount + 1)
+    }
+    setMaxCount(maxCount + 1)
+
+    if (wasCorrect2) {
+      setCorrectCount2(wasCorrect2 + 1)
+    }
+    setMaxCount2(maxCount2 + 1)
+
     const q = await getCurrentQuestion(navigate, setSubject2)
 
     if (q?.type === 'image') {
       cancelSecondTimer()
-      if (!secondEndTime) {
-        startSecondTimer()
-      }
+      startSecondTimer()
     }
 
     setQuestion(q)
@@ -127,8 +146,6 @@ export const DuoTest = () => {
       subject2: subject2,
     })
     const q = await getCurrentQuestion(navigate)
-
-    console.log('Q', q)
 
     setQuestion(q)
 
@@ -254,21 +271,11 @@ export const DuoTest = () => {
   }
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
-      {endTime && (
-        <div
-          className={`timer ${isTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
-        >
-          Zbývající čas: {displayTime}
-        </div>
-      )}
-
-      {secondEndTime && (
-        <div
-          className={`second-timer ${isSecondTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
-        >
-          Zbývající čas: {secondDisplayTime}
-        </div>
-      )}
+      <div className="panel">
+        Vaše skóre: <br />
+        Správně jste odpověděli {correctCount} z {maxCount} otázek. (
+        {Math.floor((correctCount / maxCount) * 100)}%)
+      </div>
 
       {showQuestion && (
         <>
@@ -293,6 +300,23 @@ export const DuoTest = () => {
           onAnswer={onAnswer}
         />
       )}
+
+      {endTime && (
+        <div
+          className={`timer ${isTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
+        >
+          Zbývající čas: {displayTime}
+        </div>
+      )}
+
+      {secondEndTime && (
+        <div
+          className={`second-timer ${isSecondTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
+        >
+          Zbývající čas: {secondDisplayTime}
+        </div>
+      )}
+
       {showCompare && !showQuestion && !showSlider && question && selfEval && (
         <>
           <QuestionComponent
@@ -300,6 +324,8 @@ export const DuoTest = () => {
             selectedAnswer={selectedAnswer}
             onAnswerChange={() => {}}
             subject2={subject2}
+            wasCorrect2={wasCorrect2}
+            maxCount2={maxCount2}
           />
           {subject2?.answerId === selectedAnswer?.answerId && (
             <button

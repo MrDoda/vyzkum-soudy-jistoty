@@ -8,7 +8,15 @@ export const useUser = () => {
       console.error('createUser error', error)
       return false
     }
+    localStorage.setItem('SOLO_correctCount', '0')
+    localStorage.setItem('SOLO_maxCount', '0')
+    localStorage.setItem('DUO_correctCount', '0')
+    localStorage.setItem('DUO_maxCount', '0')
+    localStorage.setItem('DUO_correctCount_Subject2', '0')
+    localStorage.setItem('DUO_maxCount_Subject2', '0')
+
     localStorage.setItem('userKey', res.userKey)
+    localStorage.setItem('seeAnswers', res.seeAnswers)
     return true
   }
 
@@ -18,7 +26,12 @@ export const useUser = () => {
       console.error('loginUser error', error)
       return
     }
+
+    localStorage.setItem('seeAnswers', res.seeAnswers)
     localStorage.setItem('userKey', res.userKey)
+    localStorage.setItem('soloTest', res.soloTest)
+    localStorage.setItem('duoTest', res.duoTest)
+    return res
   }
 
   const setDemographic = async (demographic: any) => {

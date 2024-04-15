@@ -1,6 +1,7 @@
 import React from 'react'
 import { Question, Subject2 } from '../types/types'
 import { oponentBorder } from './FourQuestion.tsx'
+import { useSeeAnswers } from '../hooks/useSeeAnswers.ts'
 
 interface BoolQuestionProps {
   question: Question
@@ -15,6 +16,8 @@ interface BoolQuestionProps {
   }
 
   subject2?: Subject2
+  wasCorrect2?: number
+  maxCount2?: number
 }
 
 const BoolQuestion: React.FC<BoolQuestionProps> = ({
@@ -22,7 +25,10 @@ const BoolQuestion: React.FC<BoolQuestionProps> = ({
   onAnswerChange,
   subject2,
   selectedAnswer,
+  wasCorrect2,
+  maxCount2,
 }) => {
+  const seeAnswers = useSeeAnswers()
   const trueValue = question.option1Content.includes('TRUE')
     ? question.option1
     : question.option2
@@ -168,6 +174,12 @@ const BoolQuestion: React.FC<BoolQuestionProps> = ({
               </div>
             </label>
           </div>
+          {seeAnswers && wasCorrect2 && maxCount2 && (
+            <div className="panel">
+              Správně odpověděl {wasCorrect2} z {maxCount2} otázek. (
+              {Math.floor((wasCorrect2 / maxCount2) * 100)}%)
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -97,7 +97,17 @@ const adminRouter = (database) =>
         return res.sendStatus(403)
       }
       const selectedGroup = req.body
-      const usersQuery = `SELECT * FROM User WHERE groupId = ${selectedGroup.groupId};`
+      const usersQuery = `SELECT 
+    User.*,
+    BOT.competence as botCompetence,
+    BOT.confidence as botConfidence
+FROM 
+    User
+LEFT JOIN 
+    BOT ON BOT.userId = User.userKey
+WHERE 
+    User.groupId = ${selectedGroup.groupId};
+`
       database.query(usersQuery, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
           console.error('no users', error, results)

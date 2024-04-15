@@ -117,7 +117,10 @@ const duoRouter = (database) =>
         return res.sendStatus(402)
       }
 
-      return res.send({ wasCorrect: question?.option1 == answerId ? 1 : 0 })
+      const wasCorrect = question?.option1 == answerId ? 1 : 0
+      const wasBotCorrect = question?.option1 == subject2?.answerId ? 1 : 0
+
+      return res.send({ wasCorrect, wasCorrect2: wasBotCorrect })
     })
 
 module.exports = duoRouter

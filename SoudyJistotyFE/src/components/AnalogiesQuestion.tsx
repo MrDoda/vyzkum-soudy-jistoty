@@ -2,6 +2,7 @@ import React from 'react'
 import { Question, Subject2 } from '../types/types'
 import { shuffleArray } from '../utils/utils.ts'
 import { oponentBorder } from './FourQuestion.tsx'
+import { useSeeAnswers } from '../hooks/useSeeAnswers.ts'
 
 interface AnalogiesQuestionProps {
   question: Question
@@ -15,6 +16,8 @@ interface AnalogiesQuestionProps {
     answer: string
   }
   subject2?: Subject2
+  wasCorrect2?: number
+  maxCount2?: number
 }
 
 let shuffledQuestions: any = {}
@@ -24,7 +27,11 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
   onAnswerChange,
   selectedAnswer,
   subject2,
+  wasCorrect2,
+  maxCount2,
 }) => {
+  const seeAnswers = useSeeAnswers()
+
   if (!shuffledQuestions[question.ID]) {
     shuffledQuestions = {}
     shuffledQuestions[question.ID] = shuffleArray([
@@ -137,6 +144,12 @@ const AnalogiesQuestion: React.FC<AnalogiesQuestionProps> = ({
               </div>
             </label>
           </div>
+          {seeAnswers && wasCorrect2 && maxCount2 && (
+            <div className="panel">
+              Správně odpověděl {wasCorrect2} z {maxCount2} otázek. (
+              {Math.floor((wasCorrect2 / maxCount2) * 100)}%)
+            </div>
+          )}
         </div>
       )}
     </div>

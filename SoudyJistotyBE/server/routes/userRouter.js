@@ -5,6 +5,8 @@ const router = express.Router()
 
 const dbPromise = getDb(true)
 
+let toggle = 0
+
 const userRouter = (database) =>
   router
     .post('/create', (req, res) => {
@@ -23,16 +25,18 @@ const userRouter = (database) =>
         const group = results[0]
 
         if (group?.groupId && userKey && gender !== undefined) {
-          const createUserQuery = `INSERT INTO User (userKey, email, gender, groupId) VALUES ("${userKey}","${
+          const seeAnswers = toggle
+          const createUserQuery = `INSERT INTO User (userKey, email, gender, groupId, seeAnswers) VALUES ("${userKey}","${
             email || ''
-          }", ${gender}, ${group.groupId});`
+          }", ${gender}, ${group.groupId}, ${seeAnswers});`
           database.query(createUserQuery, [], (error, results) => {
             if (error) {
               console.error('User creation Failed', error, results)
               return res.sendStatus(403)
             }
             res.status(201)
-            return res.send({ userKey })
+            toggle = 1 - toggle
+            return res.send({ userKey, seeAnswers })
           })
         }
       })
@@ -42,7 +46,31 @@ const userRouter = (database) =>
 
       const { userKey } = req.body
 
-      const query = `SELECT * FROM User WHERE userKey = "${userKey}";`
+      const query = `SELECT 
+    User.*,
+    SoloTest.ID AS SoloTestID,
+    DuoTest.ID AS DuoTestID
+FROM 
+    User
+LEFT JOIN 
+    (SELECT userId, MAX(createdDate) AS MaxCreatedDate FROM SoloTest GROUP BY userId) LatestSoloTest
+    ON LatestSoloTest.userId = User.userKey
+LEFT JOIN 
+    SoloTest 
+    ON SoloTest.userId = LatestSoloTest.userId AND SoloTest.createdDate = LatestSoloTest.MaxCreatedDate
+LEFT JOIN 
+    (SELECT userId, MAX(createdDate) AS MaxCreatedDate FROM DuoTest GROUP BY userId) LatestDuoTest
+    ON LatestDuoTest.userId = User.userKey
+LEFT JOIN 
+    DuoTest 
+    ON DuoTest.userId = LatestDuoTest.userId AND DuoTest.createdDate = LatestDuoTest.MaxCreatedDate
+WHERE 
+    User.userKey LIKE CONCAT('${userKey}', '%')
+ORDER BY 
+    User.createdDate DESC
+LIMIT 1;
+
+`
       database.query(query, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
           console.error('Login Failed', error, results)
@@ -51,7 +79,14 @@ const userRouter = (database) =>
         console.log('Login Successfull', results[0])
 
         res.status(200)
-        return res.send({ userKey })
+        const soloTest = results[0].SoloTestID
+        const duoTest = results[0].DuoTestID
+        return res.send({
+          userKey: results[0].userKey,
+          soloTest,
+          duoTest,
+          seeAnswers: results[0].seeAnswers,
+        })
       })
     })
     .post('/demo', async (req, res) => {
@@ -62,11 +97,18 @@ const userRouter = (database) =>
         return res.sendStatus(403)
       }
       try {
-        const { age, universityName, studyProgram, yearOfStudy, studioType } =
-          req.body
+        const {
+          age,
+          universityName,
+          studyProgram,
+          yearOfStudy,
+          studioType,
+          personalUJEP = '',
+          userUJEPid = '',
+        } = req.body
 
-        const sql = `INSERT INTO UserDemo (userId, age, universityName, studyProgram, yearOfStudy, studioType)
-                 VALUES (?, ?, ?, ?, ?, ?)`
+        const sql = `INSERT INTO UserDemo (userId, age, universityName, studyProgram, yearOfStudy, studioType, personalUJEP, userUJEPid) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
         const results = await dbPromise.execute(sql, [
           userKey,
           age,
@@ -74,6 +116,8 @@ const userRouter = (database) =>
           studyProgram,
           yearOfStudy,
           studioType,
+          personalUJEP,
+          userUJEPid,
         ])
 
         return res.send({ ok: true })

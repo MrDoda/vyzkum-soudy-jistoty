@@ -8,6 +8,8 @@ import SelfEvalSlider from '../Components/SelfEvalSlider.tsx'
 import { Pages } from '../store/pages.ts'
 import { FourQuestion } from '../Components/FourQuestion.tsx'
 import { PictureQuestion } from '../Components/PictureQuestion.tsx'
+import { useLocalStorage } from '../hooks/useLocalStorage.ts'
+import { useSeeAnswers } from '../hooks/useSeeAnswers.ts'
 
 let isLoading = false
 
@@ -37,6 +39,13 @@ export const SoloTest = () => {
   const [secondDisplayTime, setSecondDisplayTime] = useState<string>('00:30')
   const [secondEndTime, setSecondEndTime] = useState<any>(null)
   const [isAnswerLoading, setIsAnswerLoading] = useState<boolean>(false)
+  const [correctCount, setCorrectCount] = useLocalStorage(
+    'SOLO_correctCount',
+    0
+  )
+  const [maxCount, setMaxCount] = useLocalStorage('SOLO_maxCount', 0)
+
+  const seeAnswers = useSeeAnswers()
 
   const navigate = useNavigate()
 
@@ -45,19 +54,23 @@ export const SoloTest = () => {
     if (isAnswerLoading) return
     setIsAnswerLoading(true)
 
-    await setCurrentAnswer({
+    const { wasCorrect } = await setCurrentAnswer({
       question,
       answerId: selectedAnswer.answerId,
       trustScale: selfEval,
       answer: selectedAnswer.answer,
     })
+
+    if (wasCorrect) {
+      setCorrectCount(correctCount + 1)
+    }
+    setMaxCount(maxCount + 1)
+
     const q = await getCurrentQuestion(navigate)
 
     if (q?.type === 'image') {
       cancelSecondTimer()
-      if (!secondEndTime) {
-        startSecondTimer()
-      }
+      startSecondTimer()
     }
 
     setQuestion(q)
@@ -138,6 +151,15 @@ export const SoloTest = () => {
 
   return (
     <div className="container has-text-centered" style={{ marginTop: '20px' }}>
+      {seeAnswers && (
+        <div className="panel">
+          Vaše skóre: <br />
+          Správně jste odpověděli {correctCount} z {maxCount} otázek. (
+          {Math.floor((correctCount / maxCount) * 100)}%)
+        </div>
+      )}
+
+      <br />
       {secondEndTime && (
         <div
           className={`second-timer ${isSecondTimeCritical() ? 'has-text-danger is-size-1' : ''}`}
@@ -145,6 +167,7 @@ export const SoloTest = () => {
           Zbývající čas: {secondDisplayTime}
         </div>
       )}
+
       {!showSlider ? (
         <>
           <QuestionComponent

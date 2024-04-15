@@ -10,6 +10,10 @@ export const Demographic = () => {
   const [yearOfStudy, setYearOfStudy] = useState('1')
   const [studioType, setStudioType] = useState('')
 
+  const [personalUJEP, setPersonalUJEP] = useState('')
+  const [userUJEPid, setUserUJEPid] = useState('')
+  const [ujep, setUjep] = useState(false)
+
   const isDisabled =
     !age || !universityName || !studyProgram || !yearOfStudy || !studioType
 
@@ -23,6 +27,8 @@ export const Demographic = () => {
       studyProgram,
       yearOfStudy,
       studioType,
+      personalUJEP,
+      userUJEPid,
     }
     console.log('allDemo', allDemo)
 
@@ -30,6 +36,12 @@ export const Demographic = () => {
       navigate(Pages.Pandas)
     }
   }
+
+  const toggleUjep = (event: any) => {
+    setUjep(event.target.value === 'ano')
+  }
+
+  console.log('ujep', ujep)
 
   return (
     <>
@@ -107,6 +119,70 @@ export const Demographic = () => {
             </label>
           </div>
         </div>
+
+        <div className="field">
+          <label className="label">Jste studentem UJEP?</label>
+          <div className="control">
+            <label className="radio">
+              <input
+                id="ujep_ne"
+                type="radio"
+                name="ujep"
+                value="ne"
+                checked={!ujep}
+                onChange={toggleUjep}
+              />
+              NE
+            </label>
+            <label className="radio">
+              <input
+                id="ujep_ano"
+                type="radio"
+                name="ujep"
+                value="ano"
+                checked={ujep}
+                onChange={toggleUjep}
+              />
+              ANO
+            </label>
+          </div>
+        </div>
+
+        {ujep && (
+          <>
+            <div className="field">
+              <label className="label">
+                <strong>Uveďte svá identifikační čísla:</strong>
+              </label>
+            </div>
+            <div className="field">
+              <label className="label">1. Osobní číslo (např. P174098)</label>
+              <div className="control">
+                <input
+                  name="personalUJEP"
+                  className="input userKey"
+                  type="text"
+                  value={personalUJEP}
+                  onChange={(e) => setPersonalUJEP(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">
+                2. Uživatelské UJEP ID (např. st40320)
+              </label>
+              <div className="control">
+                <input
+                  name="userUJEPid"
+                  className="input userKey"
+                  type="text"
+                  value={userUJEPid}
+                  onChange={(e) => setUserUJEPid(e.target.value)}
+                />
+              </div>
+            </div>
+          </>
+        )}
 
         <div id="submit">
           <div className="field">
