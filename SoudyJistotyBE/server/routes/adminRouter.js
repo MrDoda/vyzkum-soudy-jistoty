@@ -106,7 +106,8 @@ FROM
 LEFT JOIN 
     BOT ON BOT.userId = User.userKey
 WHERE 
-    User.groupId = ${selectedGroup.groupId};
+    User.groupId = ${selectedGroup.groupId} 
+ORDER BY User.createdDate DESC;
 `
       database.query(usersQuery, [], (error, results) => {
         if (error || (Array.isArray(results) && results.length < 1)) {
